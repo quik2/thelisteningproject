@@ -85,6 +85,32 @@ function Home() {
     setIsRandomMode(false);
   };
 
+  const handleNextSubmission = () => {
+    if (filteredSubmissions.length === 0) return;
+
+    const currentIndex = filteredSubmissions.findIndex(
+      sub => sub.id === selectedSubmission?.id
+    );
+
+    // Get next submission (wrap around to start if at end)
+    const nextIndex = (currentIndex + 1) % filteredSubmissions.length;
+    setSelectedSubmission(filteredSubmissions[nextIndex]);
+  };
+
+  const handlePreviousSubmission = () => {
+    if (filteredSubmissions.length === 0) return;
+
+    const currentIndex = filteredSubmissions.findIndex(
+      sub => sub.id === selectedSubmission?.id
+    );
+
+    // Get previous submission (wrap around to end if at start)
+    const prevIndex = currentIndex <= 0
+      ? filteredSubmissions.length - 1
+      : currentIndex - 1;
+    setSelectedSubmission(filteredSubmissions[prevIndex]);
+  };
+
   const handleLikeUpdate = (submissionId, newLikes) => {
     // Update the submissions in state
     const updateSubmissions = (subs) =>
@@ -154,9 +180,13 @@ function Home() {
       {selectedSubmission && (
         <Modal
           submission={selectedSubmission}
-          onClose={() => setSelectedSubmission(null)}
+          onClose={() => {
+            setSelectedSubmission(null);
+            setIsRandomMode(false);
+          }}
           onLikeUpdate={handleLikeUpdate}
-          onNext={isRandomMode ? handleNextRandom : null}
+          onNext={isRandomMode ? handleNextRandom : handleNextSubmission}
+          onPrevious={isRandomMode ? null : handlePreviousSubmission}
         />
       )}
     </div>

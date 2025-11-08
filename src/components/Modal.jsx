@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import './Modal.css';
 
-function Modal({ submission, onClose, onLikeUpdate, onNext }) {
+function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious }) {
   const [likes, setLikes] = useState(submission.likes || 0);
   const [hasLiked, setHasLiked] = useState(false);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
 
   // Minimum swipe distance (in px)
-  const minSwipeDistance = 50;
+  const minSwipeDistance = 80;
 
   useEffect(() => {
     // Update likes when submission changes
@@ -55,11 +55,14 @@ function Modal({ submission, onClose, onLikeUpdate, onNext }) {
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
 
-    // Only trigger next on left swipe when onNext is available
+    // Left swipe = next submission
     if (isLeftSwipe && onNext) {
       onNext();
     }
-    // Right swipe could close modal or go back (for now just ignore it)
+    // Right swipe = previous submission
+    else if (isRightSwipe && onPrevious) {
+      onPrevious();
+    }
   };
 
   const handleLike = async () => {

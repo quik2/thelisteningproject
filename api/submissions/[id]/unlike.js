@@ -22,6 +22,15 @@ export default async function handler(req, res) {
   const { id } = req.query;
 
   try {
+    // Check if environment variables are set
+    if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      console.error('Missing environment variables:', {
+        hasUrl: !!process.env.SUPABASE_URL,
+        hasKey: !!process.env.SUPABASE_SERVICE_ROLE_KEY
+      });
+      return res.status(500).json({ error: 'Server configuration error' });
+    }
+
     // Get current submission
     const { data: submission, error: fetchError } = await supabase
       .from('submissions')
@@ -29,7 +38,12 @@ export default async function handler(req, res) {
       .eq('id', id)
       .single();
 
-    if (fetchError || !submission) {
+    if (fetchError) {
+      console.error('Fetch error:', fetchError);
+      return res.status(404).json({ error: 'Submission not found', details: fetchError.message });
+    }
+
+    if (!submission) {
       return res.status(404).json({ error: 'Submission not found' });
     }
 
@@ -41,11 +55,14 @@ export default async function handler(req, res) {
       .update({ likes: newLikes })
       .eq('id', id);
 
-    if (updateError) throw updateError;
+    if (updateError) {
+      console.error('Update error:', updateError);
+      throw updateError;
+    }
 
     return res.status(200).json({ likes: newLikes });
   } catch (error) {
     console.error('Error unliking submission:', error);
-    return res.status(500).json({ error: 'Failed to unlike submission' });
+    return res.status(500).json({ error: 'Failed to unlike submission', details: error.message });
   }
 }
