@@ -13,6 +13,7 @@ function SearchBar({
   const [query, setQuery] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const searchBarRef = useRef(null);
 
   // Show dropdown when typing (but don't trigger search)
@@ -49,7 +50,11 @@ function SearchBar({
     if (e.key === 'Enter') {
       setShowDropdown(false);
       setHasSearched(true);
-      onSearch(query);
+      setIsSearching(true);
+      onSearch(query, true); // Pass true to force refresh
+
+      // Remove searching animation after 300ms
+      setTimeout(() => setIsSearching(false), 300);
     } else if (e.key === 'Escape') {
       setShowDropdown(false);
     }
@@ -64,11 +69,11 @@ function SearchBar({
 
   return (
     <div className="search-bar-wrapper" ref={searchBarRef}>
-      <div className={`search-bar ${activeFilter ? 'has-filter' : ''}`}>
+      <div className={`search-bar ${activeFilter ? 'has-filter' : ''} ${isSearching ? 'searching' : ''}`}>
         <input
           type="text"
           className="search-input"
-          placeholder={activeFilter ? `Filtering by ${activeFilter.type}...` : placeholder}
+          placeholder={activeFilter ? `Search within ${activeFilter.displayName}...` : placeholder}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}

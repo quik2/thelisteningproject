@@ -126,18 +126,33 @@ function Home() {
     }
   };
 
-  const handleSearch = useCallback((query) => {
+  const handleSearch = useCallback((query, forceRefresh = false) => {
+    // Always refetch if forced (e.g., pressing Enter)
+    if (forceRefresh) {
+      fetchSubmissions();
+    }
+
     let filtered;
 
-    // If there's an active filter, filter by specific field only
+    // If there's an active filter, filter by specific field first
     if (activeFilter) {
       const filterField = activeFilter.type === 'song' ? 'songName' :
                           activeFilter.type === 'artist' ? 'artistName' :
                           'albumName';
 
+      // Filter by the selected song/artist/album
       filtered = submissions.filter(submission =>
         submission[filterField] === activeFilter.value
       );
+
+      // Then, if there's a search query, further filter within those results
+      if (query && query.trim()) {
+        const searchQuery = query.toLowerCase();
+        filtered = filtered.filter(submission =>
+          submission.userText.toLowerCase().includes(searchQuery) ||
+          submission.submittedBy.toLowerCase().includes(searchQuery)
+        );
+      }
     }
     // Otherwise, use normal search across all fields
     else if (!query || !query.trim()) {

@@ -13,6 +13,22 @@
   background: #fdfcfb;
 }
 
+.search-bar.searching .search-input {
+  animation: search-pulse 0.3s ease-out;
+}
+
+@keyframes search-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(139, 122, 107, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(139, 122, 107, 0.1);
+  }
+  100% {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+}
+
 .search-input {
   width: 100%;
   padding: 0.75rem 2.5rem 0.75rem 1.5rem;
