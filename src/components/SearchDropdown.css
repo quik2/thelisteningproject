@@ -27,8 +27,8 @@
 .dropdown-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 16px;
+  gap: 10px;
+  padding: 12px 16px;
   cursor: pointer;
   transition: background-color 0.1s ease;
   border-bottom: 1px solid #f5f0eb;
@@ -47,8 +47,8 @@
 }
 
 .item-thumbnail {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 1px;
   object-fit: cover;
   flex-shrink: 0;
@@ -61,12 +61,12 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
 }
 
 .item-name {
   font-family: 'Lora', serif;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 500;
   color: #2c2c2c;
   white-space: nowrap;
@@ -76,7 +76,7 @@
 
 .item-meta {
   font-family: 'Lora', serif;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: #a8998c;
   font-style: italic;
   white-space: nowrap;
@@ -87,21 +87,28 @@
 .item-right {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   flex-shrink: 0;
+  margin-left: 12px;
 }
 
 .item-type {
   font-family: 'Lora', serif;
-  font-size: 0.7rem;
-  color: #a8998c;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #8b7a6b;
   text-transform: lowercase;
+  padding: 3px 8px;
+  background-color: #f5f0eb;
+  border-radius: 3px;
+  border: 1px solid #e8e0d8;
 }
 
 .item-count {
   font-family: 'Lora', serif;
-  font-size: 0.7rem;
-  color: #a8998c;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #8b7a6b;
   flex-shrink: 0;
 }
 
