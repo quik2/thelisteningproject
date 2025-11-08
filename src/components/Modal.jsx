@@ -68,7 +68,7 @@ function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious }) {
   const handleLike = async () => {
     try {
       const endpoint = hasLiked ? 'unlike' : 'like';
-      const url = `/api/submissions/${endpoint}/${submission.id}`;
+      const url = `/api/submissions/${endpoint}?id=${submission.id}`;
       console.log('Attempting to like/unlike:', { url, submissionId: submission.id, endpoint });
 
       const response = await fetch(url, {
