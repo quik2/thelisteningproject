@@ -41,13 +41,78 @@
 
 .results-count {
   font-family: 'Lora', serif;
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   color: #c4b5a8;
   font-style: italic;
   text-align: center;
   padding: 0.25rem 0 0;
   max-width: 600px;
   margin: 0 auto;
+}
+
+.filter-chip-container {
+  display: flex;
+  justify-content: center;
+  margin: 0.75rem auto 0;
+  max-width: 600px;
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: #f5f0eb;
+  border: 1px solid #d4c5b9;
+  border-radius: 20px;
+  font-family: 'Lora', serif;
+  font-size: 0.85rem;
+  color: #2c2c2c;
+  animation: chip-slide-in 0.2s ease-out;
+}
+
+@keyframes chip-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.filter-type {
+  font-weight: 600;
+  text-transform: capitalize;
+  color: #8b7a6b;
+}
+
+.filter-value {
+  color: #2c2c2c;
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.filter-chip-close {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: #a8998c;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  margin-left: 0.25rem;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter-chip-close:hover {
+  color: #2c2c2c;
 }
 
 .loading,

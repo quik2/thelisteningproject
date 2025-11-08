@@ -1,34 +1,95 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import SearchDropdown from './SearchDropdown';
 import './SearchBar.css';
 
-function SearchBar({ onSearch, placeholder = 'search for anything' }) {
+function SearchBar({
+  onSearch,
+  onFilterSelect,
+  onClearFilter,
+  activeFilter,
+  submissions = [],
+  placeholder = 'Find songs, artists, albums, or memories'
+}) {
   const [query, setQuery] = useState('');
+  const [showDropdown, setShowDropdown] = useState(false);
+  const searchBarRef = useRef(null);
 
+  // Debounced search effect
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       onSearch(query);
-    }, 300);
+    }, 200);
 
     return () => clearTimeout(timeoutId);
   }, [query, onSearch]);
 
+  // Show dropdown when typing
+  useEffect(() => {
+    if (query.trim().length >= 2 && !activeFilter) {
+      setShowDropdown(true);
+    } else {
+      setShowDropdown(false);
+    }
+  }, [query, activeFilter]);
+
+  // Click outside handler
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchBarRef.current && !searchBarRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const handleClear = () => {
     setQuery('');
+    if (activeFilter) {
+      onClearFilter();
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      setShowDropdown(false);
+      // Normal search happens automatically via the debounced effect
+    } else if (e.key === 'Escape') {
+      setShowDropdown(false);
+    }
+  };
+
+  const handleFilterSelect = (type, value, displayName) => {
+    setQuery('');
+    setShowDropdown(false);
+    onFilterSelect(type, value, displayName);
   };
 
   return (
-    <div className="search-bar">
-      <input
-        type="text"
-        className="search-input"
-        placeholder={placeholder}
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      {query && (
-        <button className="search-clear" onClick={handleClear} aria-label="Clear search">
-          ×
-        </button>
+    <div className="search-bar-wrapper" ref={searchBarRef}>
+      <div className={`search-bar ${activeFilter ? 'has-filter' : ''}`}>
+        <input
+          type="text"
+          className="search-input"
+          placeholder={activeFilter ? `Filtering by ${activeFilter.type}...` : placeholder}
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={handleKeyDown}
+        />
+        {(query || activeFilter) && (
+          <button className="search-clear" onClick={handleClear} aria-label="Clear search">
+            ×
+          </button>
+        )}
+      </div>
+      {showDropdown && (
+        <SearchDropdown
+          query={query}
+          submissions={submissions}
+          onSelect={handleFilterSelect}
+          onClose={() => setShowDropdown(false)}
+        />
       )}
     </div>
   );

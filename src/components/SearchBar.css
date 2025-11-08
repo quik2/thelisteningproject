@@ -1,6 +1,16 @@
-.search-bar {
+.search-bar-wrapper {
   position: relative;
   flex: 1;
+}
+
+.search-bar {
+  position: relative;
+  width: 100%;
+}
+
+.search-bar.has-filter .search-input {
+  border-color: #8b7a6b;
+  background: #fdfcfb;
 }
 
 .search-input {

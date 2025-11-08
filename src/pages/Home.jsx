@@ -13,6 +13,7 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState('most-recent');
   const [isRandomMode, setIsRandomMode] = useState(false);
+  const [activeFilter, setActiveFilter] = useState(null);
   const [searchParams] = useSearchParams();
   const lastRandomParam = useRef(null);
 
@@ -127,7 +128,19 @@ function Home() {
 
   const handleSearch = useCallback((query) => {
     let filtered;
-    if (!query || !query.trim()) {
+
+    // If there's an active filter, filter by specific field only
+    if (activeFilter) {
+      const filterField = activeFilter.type === 'song' ? 'songName' :
+                          activeFilter.type === 'artist' ? 'artistName' :
+                          'albumName';
+
+      filtered = submissions.filter(submission =>
+        submission[filterField] === activeFilter.value
+      );
+    }
+    // Otherwise, use normal search across all fields
+    else if (!query || !query.trim()) {
       filtered = submissions;
     } else {
       const searchQuery = query.toLowerCase();
@@ -140,13 +153,37 @@ function Home() {
       );
     }
     sortSubmissions(filtered);
-  }, [submissions, sortBy]);
+  }, [submissions, sortBy, activeFilter]);
+
+  const handleFilterSelect = (type, value, displayName) => {
+    setActiveFilter({ type, value, displayName });
+  };
+
+  const handleClearFilter = () => {
+    setActiveFilter(null);
+  };
+
+  // Re-run search when activeFilter changes
+  useEffect(() => {
+    handleSearch('');
+  }, [activeFilter]);
 
   return (
     <div className="home">
       <Header onRandom={handleRandom}>
+        {!loading && filteredSubmissions.length > 0 && (
+          <div className="results-count">
+            {filteredSubmissions.length} {filteredSubmissions.length === 1 ? 'memory' : 'memories'} found
+          </div>
+        )}
         <div className="search-sort-container">
-          <SearchBar onSearch={handleSearch} />
+          <SearchBar
+            onSearch={handleSearch}
+            onFilterSelect={handleFilterSelect}
+            onClearFilter={handleClearFilter}
+            activeFilter={activeFilter}
+            submissions={submissions}
+          />
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
@@ -157,9 +194,15 @@ function Home() {
             <option value="most-liked">Most Liked</option>
           </select>
         </div>
-        {!loading && filteredSubmissions.length > 0 && (
-          <div className="results-count">
-            {filteredSubmissions.length} {filteredSubmissions.length === 1 ? 'result' : 'results'}
+        {activeFilter && (
+          <div className="filter-chip-container">
+            <div className="filter-chip">
+              <span className="filter-type">{activeFilter.type}:</span>
+              <span className="filter-value">{activeFilter.displayName}</span>
+              <button className="filter-chip-close" onClick={handleClearFilter} aria-label="Clear filter">
+                ×
+              </button>
+            </div>
           </div>
         )}
       </Header>
