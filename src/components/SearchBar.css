@@ -25,61 +25,55 @@
 }
 
 .search-input-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  position: relative;
   width: 100%;
-  padding: 0.5rem 2.5rem 0.5rem 0.75rem;
-  border: 1px solid #d4c5b9;
-  background: #ffffff;
-  border-radius: 2px;
-  transition: all 0.3s ease;
-}
-
-.search-input-wrapper:focus-within {
-  outline: none;
-  border-color: #8b7a6b;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .filter-chip-inline {
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 8px;
+  gap: 3px;
+  padding: 2px 6px;
   background-color: #f5f0eb;
   border: 1px solid #d4c5b9;
-  border-radius: 16px;
+  border-radius: 12px;
   font-family: 'Lora', serif;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   white-space: nowrap;
-  flex-shrink: 0;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .filter-chip-type {
   color: #8b7a6b;
   font-weight: 600;
   text-transform: lowercase;
+  font-size: 0.85rem;
 }
 
 .filter-chip-name {
   color: #2c2c2c;
   font-weight: 500;
-  max-width: 150px;
+  max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 0.9rem;
 }
 
 .filter-chip-remove {
   background: none;
   border: none;
   color: #a8998c;
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 1;
   cursor: pointer;
   padding: 0 2px;
-  margin-left: 2px;
   transition: color 0.2s ease;
+  pointer-events: auto;
 }
 
 .filter-chip-remove:hover {
@@ -87,14 +81,24 @@
 }
 
 .search-input {
-  flex: 1;
-  border: none;
-  outline: none;
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 1.5rem;
   font-family: 'Lora', serif;
   font-size: 1rem;
-  background: transparent;
-  padding: 0.25rem 0.5rem;
-  min-width: 0;
+  border: 1px solid #d4c5b9;
+  background: #ffffff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.search-bar.has-filter .search-input {
+  padding-left: calc(1.5rem + var(--chip-width, 120px) + 8px);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #8b7a6b;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .search-input::placeholder {

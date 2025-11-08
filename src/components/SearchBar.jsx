@@ -15,6 +15,7 @@ function SearchBar({
   const [hasSearched, setHasSearched] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const searchBarRef = useRef(null);
+  const chipRef = useRef(null);
 
   // Show dropdown when typing (but don't trigger search)
   useEffect(() => {
@@ -74,12 +75,20 @@ function SearchBar({
     onFilterSelect(type, value, displayName);
   };
 
+  // Update CSS variable when chip width changes
+  useEffect(() => {
+    if (chipRef.current && activeFilter) {
+      const chipWidth = chipRef.current.offsetWidth;
+      searchBarRef.current?.style.setProperty('--chip-width', `${chipWidth}px`);
+    }
+  }, [activeFilter]);
+
   return (
     <div className="search-bar-wrapper" ref={searchBarRef}>
       <div className={`search-bar ${activeFilter ? 'has-filter' : ''} ${isSearching ? 'searching' : ''}`}>
         <div className="search-input-wrapper">
           {activeFilter && (
-            <div className="filter-chip-inline">
+            <div className="filter-chip-inline" ref={chipRef}>
               <span className="filter-chip-type">{activeFilter.type}:</span>
               <span className="filter-chip-name">{activeFilter.displayName}</span>
               <button
@@ -100,8 +109,8 @@ function SearchBar({
             onKeyDown={handleKeyDown}
           />
         </div>
-        {query && (
-          <button className="search-clear" onClick={() => setQuery('')} aria-label="Clear search">
+        {(query || activeFilter) && (
+          <button className="search-clear" onClick={handleClear} aria-label="Clear all">
             ×
           </button>
         )}
