@@ -17,7 +17,7 @@ function SearchBar({
 
   // Show dropdown when typing (but don't trigger search)
   useEffect(() => {
-    if (query.trim().length >= 2 && !activeFilter) {
+    if (query.trim().length >= 1 && !activeFilter) {
       setShowDropdown(true);
     } else {
       setShowDropdown(false);

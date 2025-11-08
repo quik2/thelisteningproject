@@ -1,87 +1,89 @@
 import React, { useMemo } from 'react';
+import Fuse from 'fuse.js';
 import './SearchDropdown.css';
 
 const SearchDropdown = ({ query, submissions, onSelect, onClose }) => {
   const suggestions = useMemo(() => {
-    if (!query || query.trim().length < 2) return null;
+    if (!query || query.trim().length < 1) return null;
 
-    const searchQuery = query.toLowerCase().trim();
+    const searchQuery = query.trim();
 
-    // Collect all unique items with relevance scoring
-    const items = new Map();
+    // Build searchable items from submissions
+    const searchableItems = [];
+    const itemMap = new Map();
 
     submissions.forEach(submission => {
-      const songName = submission.songName;
-      const artistName = submission.artistName;
-      const albumName = submission.albumName;
-
-      // Song match
-      if (songName.toLowerCase().includes(searchQuery)) {
-        const key = `song:${songName}`;
-        if (!items.has(key)) {
-          const exactMatch = songName.toLowerCase() === searchQuery;
-          const startsWithMatch = songName.toLowerCase().startsWith(searchQuery);
-          const relevance = exactMatch ? 1000 : startsWithMatch ? 500 : 100;
-
-          items.set(key, {
-            type: 'song',
-            name: songName,
-            artist: artistName,
-            albumCover: submission.albumCover,
-            count: 1,
-            relevance
-          });
-        } else {
-          items.get(key).count++;
-        }
+      // Songs
+      const songKey = `song:${submission.songName}`;
+      if (!itemMap.has(songKey)) {
+        searchableItems.push({
+          type: 'song',
+          name: submission.songName,
+          artist: submission.artistName,
+          albumCover: submission.albumCover,
+          searchText: submission.songName,
+          key: songKey,
+          count: 1
+        });
+        itemMap.set(songKey, searchableItems[searchableItems.length - 1]);
+      } else {
+        itemMap.get(songKey).count++;
       }
 
-      // Artist match
-      if (artistName.toLowerCase().includes(searchQuery)) {
-        const key = `artist:${artistName}`;
-        if (!items.has(key)) {
-          const exactMatch = artistName.toLowerCase() === searchQuery;
-          const startsWithMatch = artistName.toLowerCase().startsWith(searchQuery);
-          const relevance = exactMatch ? 1000 : startsWithMatch ? 500 : 100;
-
-          items.set(key, {
-            type: 'artist',
-            name: artistName,
-            albumCover: submission.albumCover,
-            count: 1,
-            relevance
-          });
-        } else {
-          items.get(key).count++;
-        }
+      // Artists
+      const artistKey = `artist:${submission.artistName}`;
+      if (!itemMap.has(artistKey)) {
+        searchableItems.push({
+          type: 'artist',
+          name: submission.artistName,
+          albumCover: submission.albumCover,
+          searchText: submission.artistName,
+          key: artistKey,
+          count: 1
+        });
+        itemMap.set(artistKey, searchableItems[searchableItems.length - 1]);
+      } else {
+        itemMap.get(artistKey).count++;
       }
 
-      // Album match
-      if (albumName.toLowerCase().includes(searchQuery)) {
-        const key = `album:${albumName}`;
-        if (!items.has(key)) {
-          const exactMatch = albumName.toLowerCase() === searchQuery;
-          const startsWithMatch = albumName.toLowerCase().startsWith(searchQuery);
-          const relevance = exactMatch ? 1000 : startsWithMatch ? 500 : 100;
-
-          items.set(key, {
-            type: 'album',
-            name: albumName,
-            artist: artistName,
-            albumCover: submission.albumCover,
-            count: 1,
-            relevance
-          });
-        } else {
-          items.get(key).count++;
-        }
+      // Albums
+      const albumKey = `album:${submission.albumName}`;
+      if (!itemMap.has(albumKey)) {
+        searchableItems.push({
+          type: 'album',
+          name: submission.albumName,
+          artist: submission.artistName,
+          albumCover: submission.albumCover,
+          searchText: submission.albumName,
+          key: albumKey,
+          count: 1
+        });
+        itemMap.set(albumKey, searchableItems[searchableItems.length - 1]);
+      } else {
+        itemMap.get(albumKey).count++;
       }
     });
 
-    // Convert to array and sort by relevance, then by count
-    const results = Array.from(items.values())
+    // Configure Fuse.js for fuzzy search
+    const fuse = new Fuse(searchableItems, {
+      keys: ['searchText'],
+      threshold: 0.3, // Lower = stricter, 0.3 allows for some typos
+      distance: 100,
+      minMatchCharLength: 1,
+      includeScore: true
+    });
+
+    // Perform fuzzy search
+    const fuseResults = fuse.search(searchQuery);
+
+    // Get unique results and sort by score (lower is better), then by count
+    const results = fuseResults
+      .map(result => ({
+        ...result.item,
+        score: result.score
+      }))
       .sort((a, b) => {
-        if (b.relevance !== a.relevance) return b.relevance - a.relevance;
+        if (a.score !== b.score) return a.score - b.score;
         return b.count - a.count;
       })
       .slice(0, 8);
@@ -103,7 +105,7 @@ const SearchDropdown = ({ query, submissions, onSelect, onClose }) => {
       {suggestions.map((item, index) => (
         <div
           key={`${item.type}-${index}`}
-          className="dropdown-item"
+          className={`dropdown-item dropdown-item-${item.type}`}
           onClick={() => handleSelect(item)}
         >
           <img
@@ -117,12 +119,7 @@ const SearchDropdown = ({ query, submissions, onSelect, onClose }) => {
               <div className="item-meta">{item.artist}</div>
             )}
           </div>
-          <div className="item-right">
-            <span className="item-type">{item.type}</span>
-            {item.count > 1 && (
-              <span className="item-count">{item.count}</span>
-            )}
-          </div>
+          <span className={`item-type item-type-${item.type}`}>{item.type}</span>
         </div>
       ))}
 
