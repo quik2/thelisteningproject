@@ -94,7 +94,6 @@ const SearchDropdown = ({ query, submissions, onSelect, onClose }) => {
       {suggestions.songs.length > 0 && (
         <div className="dropdown-section">
           <div className="section-header">
-            <span className="section-icon">🎵</span>
             <span className="section-title">Songs</span>
           </div>
           {suggestions.songs.map((song, index) => (
@@ -113,7 +112,7 @@ const SearchDropdown = ({ query, submissions, onSelect, onClose }) => {
                 <div className="item-meta">{song.artist}</div>
               </div>
               {song.count > 1 && (
-                <span className="item-count">{song.count} submissions</span>
+                <span className="item-count">{song.count}</span>
               )}
             </div>
           ))}
@@ -123,7 +122,6 @@ const SearchDropdown = ({ query, submissions, onSelect, onClose }) => {
       {suggestions.artists.length > 0 && (
         <div className="dropdown-section">
           <div className="section-header">
-            <span className="section-icon">🎤</span>
             <span className="section-title">Artists</span>
           </div>
           {suggestions.artists.map((artist, index) => (
@@ -140,7 +138,7 @@ const SearchDropdown = ({ query, submissions, onSelect, onClose }) => {
               <div className="item-info">
                 <div className="item-name">{artist.name}</div>
               </div>
-              <span className="item-count">{artist.count} submissions</span>
+              <span className="item-count">{artist.count}</span>
             </div>
           ))}
         </div>
@@ -149,7 +147,6 @@ const SearchDropdown = ({ query, submissions, onSelect, onClose }) => {
       {suggestions.albums.length > 0 && (
         <div className="dropdown-section">
           <div className="section-header">
-            <span className="section-icon">💿</span>
             <span className="section-title">Albums</span>
           </div>
           {suggestions.albums.map((album, index) => (
@@ -168,7 +165,7 @@ const SearchDropdown = ({ query, submissions, onSelect, onClose }) => {
                 <div className="item-meta">{album.artist}</div>
               </div>
               {album.count > 1 && (
-                <span className="item-count">{album.count} submissions</span>
+                <span className="item-count">{album.count}</span>
               )}
             </div>
           ))}
@@ -176,7 +173,7 @@ const SearchDropdown = ({ query, submissions, onSelect, onClose }) => {
       )}
 
       <div className="dropdown-footer">
-        Press <kbd>Enter</kbd> to search all fields
+        press enter to search all fields
       </div>
     </div>
   );

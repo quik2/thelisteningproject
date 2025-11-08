@@ -12,18 +12,10 @@ function SearchBar({
 }) {
   const [query, setQuery] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
   const searchBarRef = useRef(null);
 
-  // Debounced search effect
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      onSearch(query);
-    }, 200);
-
-    return () => clearTimeout(timeoutId);
-  }, [query, onSearch]);
-
-  // Show dropdown when typing
+  // Show dropdown when typing (but don't trigger search)
   useEffect(() => {
     if (query.trim().length >= 2 && !activeFilter) {
       setShowDropdown(true);
@@ -46,6 +38,8 @@ function SearchBar({
 
   const handleClear = () => {
     setQuery('');
+    setHasSearched(false);
+    onSearch(''); // Reset to show all
     if (activeFilter) {
       onClearFilter();
     }
@@ -54,7 +48,8 @@ function SearchBar({
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       setShowDropdown(false);
-      // Normal search happens automatically via the debounced effect
+      setHasSearched(true);
+      onSearch(query);
     } else if (e.key === 'Escape') {
       setShowDropdown(false);
     }
@@ -63,6 +58,7 @@ function SearchBar({
   const handleFilterSelect = (type, value, displayName) => {
     setQuery('');
     setShowDropdown(false);
+    setHasSearched(false);
     onFilterSelect(type, value, displayName);
   };
 
