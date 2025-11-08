@@ -13,12 +13,20 @@
 When deploying to Vercel, add these environment variables in your project settings:
 
 ```
+# Client-side variables (used during build)
 VITE_SPOTIFY_CLIENT_ID=1a404cb911654d09a8d7716c74ab068b
 VITE_SPOTIFY_CLIENT_SECRET=82b8350f37954c2c9b9a7f6bbbd2821b
 VITE_SUPABASE_URL=https://guqcshanceaicppjlmyr.supabase.co
 VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd1cWNzaGFuY2VhaWNwcGpsbXlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1NTY1OTIsImV4cCI6MjA3ODEzMjU5Mn0.0sCBWu5VDsrN65UHLMr3_q3V83aj5FO_XK8oO0gU5aY
+
+# Server-side variables (used in API routes at runtime)
+SPOTIFY_CLIENT_ID=1a404cb911654d09a8d7716c74ab068b
+SPOTIFY_CLIENT_SECRET=82b8350f37954c2c9b9a7f6bbbd2821b
+SUPABASE_URL=https://guqcshanceaicppjlmyr.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd1cWNzaGFuY2VhaWNwcGpsbXlyIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjU1NjU5MiwiZXhwIjoyMDc4MTMyNTkyfQ.L9lZkym3zSQ-XI2TZs9rLAoyNrPDzxKgkDbkGWErsLk
 ```
+
+**Important**: You need BOTH sets of variables. The `VITE_` prefixed ones are used during the build process for the client-side code, while the non-prefixed ones are used at runtime in the API routes.
 
 ## Step 3: Deploy
 

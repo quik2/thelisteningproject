@@ -41,29 +41,33 @@ function Modal({ submission, onClose, onLikeUpdate, onNext }) {
         method: 'POST',
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        setLikes(data.likes);
-        setHasLiked(!hasLiked);
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Like API error:', response.status, errorText);
+        return;
+      }
 
-        // Update localStorage
-        const likedSubmissions = JSON.parse(localStorage.getItem('likedSubmissions') || '[]');
-        if (hasLiked) {
-          // Remove from liked submissions
-          const index = likedSubmissions.indexOf(submission.id);
-          if (index > -1) {
-            likedSubmissions.splice(index, 1);
-          }
-        } else {
-          // Add to liked submissions
-          likedSubmissions.push(submission.id);
-        }
-        localStorage.setItem('likedSubmissions', JSON.stringify(likedSubmissions));
+      const data = await response.json();
+      setLikes(data.likes);
+      setHasLiked(!hasLiked);
 
-        // Notify parent component if callback provided
-        if (onLikeUpdate) {
-          onLikeUpdate(submission.id, data.likes);
+      // Update localStorage
+      const likedSubmissions = JSON.parse(localStorage.getItem('likedSubmissions') || '[]');
+      if (hasLiked) {
+        // Remove from liked submissions
+        const index = likedSubmissions.indexOf(submission.id);
+        if (index > -1) {
+          likedSubmissions.splice(index, 1);
         }
+      } else {
+        // Add to liked submissions
+        likedSubmissions.push(submission.id);
+      }
+      localStorage.setItem('likedSubmissions', JSON.stringify(likedSubmissions));
+
+      // Notify parent component if callback provided
+      if (onLikeUpdate) {
+        onLikeUpdate(submission.id, data.likes);
       }
     } catch (error) {
       console.error('Error toggling like:', error);
