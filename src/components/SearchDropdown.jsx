@@ -7,170 +7,124 @@ const SearchDropdown = ({ query, submissions, onSelect, onClose }) => {
 
     const searchQuery = query.toLowerCase().trim();
 
-    // Extract unique songs, artists, and albums from submissions
-    const songs = new Map();
-    const artists = new Map();
-    const albums = new Map();
+    // Collect all unique items with relevance scoring
+    const items = new Map();
 
     submissions.forEach(submission => {
       const songName = submission.songName;
       const artistName = submission.artistName;
       const albumName = submission.albumName;
 
-      // Songs - store with metadata
+      // Song match
       if (songName.toLowerCase().includes(searchQuery)) {
-        if (!songs.has(songName)) {
-          songs.set(songName, {
+        const key = `song:${songName}`;
+        if (!items.has(key)) {
+          const exactMatch = songName.toLowerCase() === searchQuery;
+          const startsWithMatch = songName.toLowerCase().startsWith(searchQuery);
+          const relevance = exactMatch ? 1000 : startsWithMatch ? 500 : 100;
+
+          items.set(key, {
+            type: 'song',
             name: songName,
             artist: artistName,
             albumCover: submission.albumCover,
-            count: 1
-          });
-        } else {
-          songs.get(songName).count++;
-        }
-      }
-
-      // Artists - count submissions
-      if (artistName.toLowerCase().includes(searchQuery)) {
-        if (!artists.has(artistName)) {
-          artists.set(artistName, {
-            name: artistName,
             count: 1,
-            albumCover: submission.albumCover
+            relevance
           });
         } else {
-          artists.get(artistName).count++;
+          items.get(key).count++;
         }
       }
 
-      // Albums - store with metadata
+      // Artist match
+      if (artistName.toLowerCase().includes(searchQuery)) {
+        const key = `artist:${artistName}`;
+        if (!items.has(key)) {
+          const exactMatch = artistName.toLowerCase() === searchQuery;
+          const startsWithMatch = artistName.toLowerCase().startsWith(searchQuery);
+          const relevance = exactMatch ? 1000 : startsWithMatch ? 500 : 100;
+
+          items.set(key, {
+            type: 'artist',
+            name: artistName,
+            albumCover: submission.albumCover,
+            count: 1,
+            relevance
+          });
+        } else {
+          items.get(key).count++;
+        }
+      }
+
+      // Album match
       if (albumName.toLowerCase().includes(searchQuery)) {
-        if (!albums.has(albumName)) {
-          albums.set(albumName, {
+        const key = `album:${albumName}`;
+        if (!items.has(key)) {
+          const exactMatch = albumName.toLowerCase() === searchQuery;
+          const startsWithMatch = albumName.toLowerCase().startsWith(searchQuery);
+          const relevance = exactMatch ? 1000 : startsWithMatch ? 500 : 100;
+
+          items.set(key, {
+            type: 'album',
             name: albumName,
             artist: artistName,
             albumCover: submission.albumCover,
-            count: 1
+            count: 1,
+            relevance
           });
         } else {
-          albums.get(albumName).count++;
+          items.get(key).count++;
         }
       }
     });
 
-    // Convert to arrays and limit to top 5 each
-    const songResults = Array.from(songs.values())
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 5);
+    // Convert to array and sort by relevance, then by count
+    const results = Array.from(items.values())
+      .sort((a, b) => {
+        if (b.relevance !== a.relevance) return b.relevance - a.relevance;
+        return b.count - a.count;
+      })
+      .slice(0, 8);
 
-    const artistResults = Array.from(artists.values())
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 5);
-
-    const albumResults = Array.from(albums.values())
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 5);
-
-    return {
-      songs: songResults,
-      artists: artistResults,
-      albums: albumResults,
-      hasResults: songResults.length > 0 || artistResults.length > 0 || albumResults.length > 0
-    };
+    return results.length > 0 ? results : null;
   }, [query, submissions]);
 
-  if (!suggestions || !suggestions.hasResults) {
+  if (!suggestions) {
     return null;
   }
 
-  const handleSelect = (type, value, displayName) => {
-    onSelect(type, value, displayName);
+  const handleSelect = (item) => {
+    onSelect(item.type, item.name, item.name);
     onClose();
   };
 
   return (
     <div className="search-dropdown">
-      {suggestions.songs.length > 0 && (
-        <div className="dropdown-section">
-          <div className="section-header">
-            <span className="section-title">Songs</span>
+      {suggestions.map((item, index) => (
+        <div
+          key={`${item.type}-${index}`}
+          className="dropdown-item"
+          onClick={() => handleSelect(item)}
+        >
+          <img
+            src={item.albumCover}
+            alt={item.name}
+            className="item-thumbnail"
+          />
+          <div className="item-info">
+            <div className="item-name">{item.name}</div>
+            {item.artist && (
+              <div className="item-meta">{item.artist}</div>
+            )}
           </div>
-          {suggestions.songs.map((song, index) => (
-            <div
-              key={`song-${index}`}
-              className="dropdown-item"
-              onClick={() => handleSelect('song', song.name, song.name)}
-            >
-              <img
-                src={song.albumCover}
-                alt={song.name}
-                className="item-thumbnail"
-              />
-              <div className="item-info">
-                <div className="item-name">{song.name}</div>
-                <div className="item-meta">{song.artist}</div>
-              </div>
-              {song.count > 1 && (
-                <span className="item-count">{song.count}</span>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-
-      {suggestions.artists.length > 0 && (
-        <div className="dropdown-section">
-          <div className="section-header">
-            <span className="section-title">Artists</span>
+          <div className="item-right">
+            <span className="item-type">{item.type}</span>
+            {item.count > 1 && (
+              <span className="item-count">{item.count}</span>
+            )}
           </div>
-          {suggestions.artists.map((artist, index) => (
-            <div
-              key={`artist-${index}`}
-              className="dropdown-item"
-              onClick={() => handleSelect('artist', artist.name, artist.name)}
-            >
-              <img
-                src={artist.albumCover}
-                alt={artist.name}
-                className="item-thumbnail"
-              />
-              <div className="item-info">
-                <div className="item-name">{artist.name}</div>
-              </div>
-              <span className="item-count">{artist.count}</span>
-            </div>
-          ))}
         </div>
-      )}
-
-      {suggestions.albums.length > 0 && (
-        <div className="dropdown-section">
-          <div className="section-header">
-            <span className="section-title">Albums</span>
-          </div>
-          {suggestions.albums.map((album, index) => (
-            <div
-              key={`album-${index}`}
-              className="dropdown-item"
-              onClick={() => handleSelect('album', album.name, album.name)}
-            >
-              <img
-                src={album.albumCover}
-                alt={album.name}
-                className="item-thumbnail"
-              />
-              <div className="item-info">
-                <div className="item-name">{album.name}</div>
-                <div className="item-meta">{album.artist}</div>
-              </div>
-              {album.count > 1 && (
-                <span className="item-count">{album.count}</span>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
+      ))}
 
       <div className="dropdown-footer">
         press enter to search all fields
