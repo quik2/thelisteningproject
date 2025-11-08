@@ -13,13 +13,7 @@
   gap: 1rem;
   width: 100%;
   max-width: 600px;
-  margin: 2rem auto;
-}
-
-.sort-results-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+  margin: 2rem auto 0.5rem;
 }
 
 .sort-dropdown {
@@ -47,10 +41,13 @@
 
 .results-count {
   font-family: 'Lora', serif;
-  font-size: 0.75rem;
-  color: #b5a79a;
+  font-size: 0.7rem;
+  color: #c4b5a8;
   font-style: italic;
-  white-space: nowrap;
+  text-align: center;
+  padding: 0.25rem 0 0;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .loading,
@@ -67,7 +64,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 4rem 3rem;
-  padding: 2rem 0;
+  padding: 1.5rem 0 2rem;
   justify-content: center;
 }
 

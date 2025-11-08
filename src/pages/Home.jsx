@@ -147,23 +147,21 @@ function Home() {
       <Header onRandom={handleRandom}>
         <div className="search-sort-container">
           <SearchBar onSearch={handleSearch} />
-          <div className="sort-results-wrapper">
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="sort-dropdown"
-            >
-              <option value="most-recent">Most Recent</option>
-              <option value="most-old">Oldest</option>
-              <option value="most-liked">Most Liked</option>
-            </select>
-            {!loading && filteredSubmissions.length > 0 && (
-              <div className="results-count">
-                {filteredSubmissions.length} {filteredSubmissions.length === 1 ? 'result' : 'results'}
-              </div>
-            )}
-          </div>
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="sort-dropdown"
+          >
+            <option value="most-recent">Most Recent</option>
+            <option value="most-old">Oldest</option>
+            <option value="most-liked">Most Liked</option>
+          </select>
         </div>
+        {!loading && filteredSubmissions.length > 0 && (
+          <div className="results-count">
+            {filteredSubmissions.length} {filteredSubmissions.length === 1 ? 'result' : 'results'}
+          </div>
+        )}
       </Header>
 
       <div className="home-content">
