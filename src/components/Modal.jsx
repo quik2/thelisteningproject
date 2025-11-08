@@ -39,11 +39,36 @@ function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious }) {
     // Prevent multiple simultaneous requests
     if (isLiking) return;
 
+    // Optimistic update - update UI immediately for instant feedback
+    const wasLiked = hasLiked;
+    const previousLikes = likes;
+    const newLikes = wasLiked ? likes - 1 : likes + 1;
+
     setIsLiking(true);
+    setHasLiked(!wasLiked);
+    setLikes(newLikes);
+
+    // Update localStorage immediately
+    const likedSubmissions = JSON.parse(localStorage.getItem('likedSubmissions') || '[]');
+    if (wasLiked) {
+      const index = likedSubmissions.indexOf(submission.id);
+      if (index > -1) {
+        likedSubmissions.splice(index, 1);
+      }
+    } else {
+      likedSubmissions.push(submission.id);
+    }
+    localStorage.setItem('likedSubmissions', JSON.stringify(likedSubmissions));
+
+    // Notify parent component immediately
+    if (onLikeUpdate) {
+      onLikeUpdate(submission.id, newLikes);
+    }
+
+    // Then sync with server in the background
     try {
-      const endpoint = hasLiked ? 'unlike' : 'like';
+      const endpoint = wasLiked ? 'unlike' : 'like';
       const url = `/api/submissions/${endpoint}?id=${submission.id}`;
-      console.log('Attempting to like/unlike:', { url, submissionId: submission.id, endpoint });
 
       const response = await fetch(url, {
         method: 'POST',
@@ -52,42 +77,65 @@ function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious }) {
         },
       });
 
-      console.log('Response status:', response.status);
-
       if (!response.ok) {
+        // Revert optimistic update on error
+        setHasLiked(wasLiked);
+        setLikes(previousLikes);
+
+        // Revert localStorage
+        const revertedSubmissions = JSON.parse(localStorage.getItem('likedSubmissions') || '[]');
+        if (wasLiked) {
+          revertedSubmissions.push(submission.id);
+        } else {
+          const index = revertedSubmissions.indexOf(submission.id);
+          if (index > -1) {
+            revertedSubmissions.splice(index, 1);
+          }
+        }
+        localStorage.setItem('likedSubmissions', JSON.stringify(revertedSubmissions));
+
+        // Revert parent state
+        if (onLikeUpdate) {
+          onLikeUpdate(submission.id, previousLikes);
+        }
+
         const errorText = await response.text();
         console.error('Like API error:', response.status, errorText);
-        alert(`Failed to ${endpoint} submission. Check console for details.`);
         return;
       }
 
       const data = await response.json();
-      console.log('Like response data:', data);
 
-      setLikes(data.likes);
-      setHasLiked(!hasLiked);
-
-      // Update localStorage
-      const likedSubmissions = JSON.parse(localStorage.getItem('likedSubmissions') || '[]');
-      if (hasLiked) {
-        // Remove from liked submissions
-        const index = likedSubmissions.indexOf(submission.id);
-        if (index > -1) {
-          likedSubmissions.splice(index, 1);
+      // Update with server's actual count (in case it differs)
+      if (data.likes !== newLikes) {
+        setLikes(data.likes);
+        if (onLikeUpdate) {
+          onLikeUpdate(submission.id, data.likes);
         }
-      } else {
-        // Add to liked submissions
-        likedSubmissions.push(submission.id);
-      }
-      localStorage.setItem('likedSubmissions', JSON.stringify(likedSubmissions));
-
-      // Notify parent component if callback provided
-      if (onLikeUpdate) {
-        onLikeUpdate(submission.id, data.likes);
       }
     } catch (error) {
+      // Revert optimistic update on error
+      setHasLiked(wasLiked);
+      setLikes(previousLikes);
+
+      // Revert localStorage
+      const revertedSubmissions = JSON.parse(localStorage.getItem('likedSubmissions') || '[]');
+      if (wasLiked) {
+        revertedSubmissions.push(submission.id);
+      } else {
+        const index = revertedSubmissions.indexOf(submission.id);
+        if (index > -1) {
+          revertedSubmissions.splice(index, 1);
+        }
+      }
+      localStorage.setItem('likedSubmissions', JSON.stringify(revertedSubmissions));
+
+      // Revert parent state
+      if (onLikeUpdate) {
+        onLikeUpdate(submission.id, previousLikes);
+      }
+
       console.error('Error toggling like:', error);
-      alert(`Error: ${error.message}`);
     } finally {
       setIsLiking(false);
     }
