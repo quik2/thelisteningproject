@@ -68,17 +68,28 @@ function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious }) {
   const handleLike = async () => {
     try {
       const endpoint = hasLiked ? 'unlike' : 'like';
-      const response = await fetch(`/api/submissions/${submission.id}/${endpoint}`, {
+      const url = `/api/submissions/${submission.id}/${endpoint}`;
+      console.log('Attempting to like/unlike:', { url, submissionId: submission.id, endpoint });
+
+      const response = await fetch(url, {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
+
+      console.log('Response status:', response.status);
 
       if (!response.ok) {
         const errorText = await response.text();
         console.error('Like API error:', response.status, errorText);
+        alert(`Failed to ${endpoint} submission. Check console for details.`);
         return;
       }
 
       const data = await response.json();
+      console.log('Like response data:', data);
+
       setLikes(data.likes);
       setHasLiked(!hasLiked);
 
@@ -102,6 +113,7 @@ function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious }) {
       }
     } catch (error) {
       console.error('Error toggling like:', error);
+      alert(`Error: ${error.message}`);
     }
   };
 
