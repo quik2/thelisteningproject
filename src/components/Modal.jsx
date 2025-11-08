@@ -4,6 +4,7 @@ import './Modal.css';
 function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious }) {
   const [likes, setLikes] = useState(submission.likes || 0);
   const [hasLiked, setHasLiked] = useState(false);
+  const [isLiking, setIsLiking] = useState(false);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
 
@@ -66,6 +67,10 @@ function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious }) {
   };
 
   const handleLike = async () => {
+    // Prevent multiple simultaneous requests
+    if (isLiking) return;
+
+    setIsLiking(true);
     try {
       const endpoint = hasLiked ? 'unlike' : 'like';
       const url = `/api/submissions/${endpoint}?id=${submission.id}`;
@@ -114,6 +119,8 @@ function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious }) {
     } catch (error) {
       console.error('Error toggling like:', error);
       alert(`Error: ${error.message}`);
+    } finally {
+      setIsLiking(false);
     }
   };
 
@@ -138,8 +145,9 @@ function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious }) {
                 <p className="modal-artist">{submission.artistName}</p>
                 <div className="modal-like-section">
                   <button
-                    className={`like-button ${hasLiked ? 'liked' : ''}`}
+                    className={`like-button ${hasLiked ? 'liked' : ''} ${isLiking ? 'liking' : ''}`}
                     onClick={handleLike}
+                    disabled={isLiking}
                   >
                     <span className="like-icon">{hasLiked ? '♥' : '♡'}</span>
                     <span className="like-count">{likes}</span>
