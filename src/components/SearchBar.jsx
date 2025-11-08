@@ -47,6 +47,13 @@ function SearchBar({
   };
 
   const handleKeyDown = (e) => {
+    // Delete filter chip with backspace when input is empty
+    if (e.key === 'Backspace' && !query && activeFilter) {
+      e.preventDefault();
+      onClearFilter();
+      return;
+    }
+
     if (e.key === 'Enter') {
       setShowDropdown(false);
       setHasSearched(true);
@@ -70,16 +77,31 @@ function SearchBar({
   return (
     <div className="search-bar-wrapper" ref={searchBarRef}>
       <div className={`search-bar ${activeFilter ? 'has-filter' : ''} ${isSearching ? 'searching' : ''}`}>
-        <input
-          type="text"
-          className="search-input"
-          placeholder={activeFilter ? `Search within ${activeFilter.displayName}...` : placeholder}
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={handleKeyDown}
-        />
-        {(query || activeFilter) && (
-          <button className="search-clear" onClick={handleClear} aria-label="Clear search">
+        <div className="search-input-wrapper">
+          {activeFilter && (
+            <div className="filter-chip-inline">
+              <span className="filter-chip-type">{activeFilter.type}:</span>
+              <span className="filter-chip-name">{activeFilter.displayName}</span>
+              <button
+                className="filter-chip-remove"
+                onClick={onClearFilter}
+                aria-label="Remove filter"
+              >
+                ×
+              </button>
+            </div>
+          )}
+          <input
+            type="text"
+            className="search-input"
+            placeholder={activeFilter ? 'Search within...' : placeholder}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+        </div>
+        {query && (
+          <button className="search-clear" onClick={() => setQuery('')} aria-label="Clear search">
             ×
           </button>
         )}

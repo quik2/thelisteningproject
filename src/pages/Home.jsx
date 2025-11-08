@@ -209,17 +209,6 @@ function Home() {
             <option value="most-liked">Most Liked</option>
           </select>
         </div>
-        {activeFilter && (
-          <div className="filter-chip-container">
-            <div className="filter-chip">
-              <span className="filter-type">{activeFilter.type}:</span>
-              <span className="filter-value">{activeFilter.displayName}</span>
-              <button className="filter-chip-close" onClick={handleClearFilter} aria-label="Clear filter">
-                ×
-              </button>
-            </div>
-          </div>
-        )}
       </Header>
 
       <div className="home-content">
