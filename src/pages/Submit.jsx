@@ -104,95 +104,93 @@ function Submit() {
     <div className="submit-page">
       <Header onRandom={handleRandom} />
       <div className="submit-container">
-        <div className="submit-form">
-          {/* Song/Album Search */}
-          {!selectedTrack && (
-            <div className="search-section">
-              <h2 className="section-title">1. Find Your Song or Album</h2>
-              <div className="search-input-wrapper">
-                <input
-                  type="text"
-                  className="submit-input"
-                  placeholder="Search for a song, album, or artist..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                {searching && <span className="searching-indicator">Searching...</span>}
-              </div>
+        <div className="journal-header">
+          <h1 className="journal-title">New Entry</h1>
+          <div className="journal-date">{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
+        </div>
 
-              {searchResults.length > 0 && (
-                <div className="search-results">
-                  {searchResults.map((item) => (
-                    <div
-                      key={item.id}
-                      className="result-item"
-                      onClick={() => handleSelectTrack(item)}
-                    >
-                      <img
-                        src={item.type === 'album'
-                          ? (item.images[2]?.url || item.images[0]?.url)
-                          : (item.album.images[2]?.url || item.album.images[0]?.url)
-                        }
-                        alt={item.type === 'album' ? item.name : item.album.name}
-                        className="result-image"
-                      />
-                      <div className="result-info">
-                        <div className="result-name">
-                          {item.type === 'album' && <span className="type-badge">ALBUM</span>}
-                          {item.name}
-                          {item.type === 'track' && item.preview_url && <span className="preview-badge">🎵</span>}
-                        </div>
-                        <div className="result-artist">
-                          {item.artists.map(a => a.name).join(', ')}
+        <div className="journal-page">
+          <div className="journal-entry">
+            {!selectedTrack ? (
+              <>
+                <div className="entry-prompt">What's been playing in your head?</div>
+                <div className="search-input-wrapper">
+                  <input
+                    type="text"
+                    className="submit-input"
+                    placeholder="Search for a song or album..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                  {searching && <span className="searching-indicator">searching...</span>}
+                </div>
+
+                {searchResults.length > 0 && (
+                  <div className="search-results">
+                    {searchResults.map((item) => (
+                      <div
+                        key={item.id}
+                        className="result-item"
+                        onClick={() => handleSelectTrack(item)}
+                      >
+                        <img
+                          src={item.type === 'album'
+                            ? (item.images[2]?.url || item.images[0]?.url)
+                            : (item.album.images[2]?.url || item.album.images[0]?.url)
+                          }
+                          alt={item.type === 'album' ? item.name : item.album.name}
+                          className="result-image"
+                        />
+                        <div className="result-info">
+                          <div className="result-name">{item.name}</div>
+                          <div className="result-artist">
+                            {item.artists.map(a => a.name).join(', ')}
+                            {item.type === 'album' && ' • album'}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Selected Track & Story Input */}
-          {selectedTrack && (
-            <>
-              <div className="selected-track">
-                <h2 className="section-title">Selected Song</h2>
-                <div className="selected-display">
-                  <img src={selectedTrack.albumCover} alt={selectedTrack.albumName} />
-                  <div>
-                    <div className="selected-name">{selectedTrack.songName}</div>
-                    <div className="selected-artist">{selectedTrack.artistName}</div>
-                    <button
-                      className="change-btn"
-                      onClick={() => setSelectedTrack(null)}
-                    >
-                      Change Song
-                    </button>
+                    ))}
                   </div>
+                )}
+              </>
+            ) : (
+              <>
+                <div className="selected-track-inline">
+                  <img src={selectedTrack.albumCover} alt={selectedTrack.albumName} className="inline-album-art" />
+                  <div className="inline-track-info">
+                    <div className="inline-track-name">{selectedTrack.songName}</div>
+                    <div className="inline-track-artist">{selectedTrack.artistName}</div>
+                  </div>
+                  <button
+                    className="change-track-btn"
+                    onClick={() => setSelectedTrack(null)}
+                    title="Change selection"
+                  >
+                    ×
+                  </button>
                 </div>
-              </div>
 
-              <div className="story-section">
-                <h2 className="section-title">2. Share Your Story</h2>
+                <div className="entry-divider"></div>
+
                 <textarea
                   className="story-input"
-                  placeholder="Tell us about a memory, moment, or feeling connected to this song..."
+                  placeholder="Write about the memory this brings back..."
                   value={userText}
                   onChange={(e) => setUserText(e.target.value)}
-                  rows="6"
+                  rows="10"
+                  autoFocus
                 />
-              </div>
 
-              <button
-                className="submit-btn"
-                onClick={handleSubmit}
-                disabled={!userText.trim() || submitting}
-              >
-                {submitting ? 'Submitting...' : 'Submit to The Listening Project'}
-              </button>
-            </>
-          )}
+                <button
+                  className="submit-btn"
+                  onClick={handleSubmit}
+                  disabled={!userText.trim() || submitting}
+                >
+                  {submitting ? 'Saving entry...' : 'Save to archive'}
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>
