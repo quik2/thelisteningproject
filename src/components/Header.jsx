@@ -10,6 +10,9 @@ function Header({ children, onRandom }) {
 
   return (
     <>
+      <div className="header-logo-container">
+        <img src="/PROJECTLOGO.png" alt="Project Logo" className="header-logo" />
+      </div>
       <div className="header-section">
         <div className="header-nav-links">
           <Link to="/" className={`header-nav-link ${isHome ? 'active' : ''}`}>ARCHIVE</Link>

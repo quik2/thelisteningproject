@@ -283,7 +283,7 @@
   }
 
   .modal-content {
-    padding: 2rem 1.5rem;
+    padding: 2.5rem 2rem;
     max-height: 90vh;
     overflow-y: auto;
   }
@@ -309,5 +309,12 @@
 
   .modal-story {
     font-size: 1rem;
+    padding: 0 0.5rem;
+  }
+
+  .modal-next-below {
+    bottom: -4rem;
+    font-size: 0.85rem;
+    padding: 0.65rem 1.75rem;
   }
 }

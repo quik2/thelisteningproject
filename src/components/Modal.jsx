@@ -4,6 +4,11 @@ import './Modal.css';
 function Modal({ submission, onClose, onLikeUpdate, onNext }) {
   const [likes, setLikes] = useState(submission.likes || 0);
   const [hasLiked, setHasLiked] = useState(false);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
+  // Minimum swipe distance (in px)
+  const minSwipeDistance = 50;
 
   useEffect(() => {
     // Update likes when submission changes
@@ -33,6 +38,29 @@ function Modal({ submission, onClose, onLikeUpdate, onNext }) {
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
   }, [onClose]);
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    // Only trigger next on left swipe when onNext is available
+    if (isLeftSwipe && onNext) {
+      onNext();
+    }
+    // Right swipe could close modal or go back (for now just ignore it)
+  };
 
   const handleLike = async () => {
     try {
@@ -77,7 +105,13 @@ function Modal({ submission, onClose, onLikeUpdate, onNext }) {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-overlay-inner">
-        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="modal-content"
+          onClick={(e) => e.stopPropagation()}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        >
           <button className="modal-close" onClick={onClose}>×</button>
           <div className="modal-layout">
             <div className="modal-album">

@@ -1,3 +1,15 @@
+.header-logo-container {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  z-index: 10;
+}
+
+.header-logo {
+  height: 90px;
+  display: block;
+}
+
 .header-add-button-container {
   position: absolute;
   top: 2rem;

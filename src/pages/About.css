@@ -104,7 +104,7 @@
 
 @media (max-width: 768px) {
   .about-container {
-    padding: 2rem 1.5rem 4rem;
+    padding: 2rem 2.25rem 4rem;
   }
 
   .about-title {
@@ -127,6 +127,7 @@
 
   .about-text {
     font-size: 1rem;
+    padding: 0 0.5rem;
   }
 
   .about-principles li {

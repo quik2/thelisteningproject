@@ -288,8 +288,9 @@
     transform: translateY(-50%) translateX(160px);
   }
 
-  .vinyl-record:hover {
-    transform: translateY(-50%) translateX(175px);
+  /* Disable hover animation on mobile */
+  .card-container:hover .vinyl-record {
+    transform: translateY(-50%) translateX(160px);
   }
 
   .record-center {
