@@ -50,17 +50,20 @@
 }
 
 .card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 4rem 3rem;
   padding: 2rem 0;
-  justify-items: center;
   justify-content: center;
+}
+
+.card-grid > * {
+  width: 100%;
+  max-width: 600px;
 }
 
 @media (max-width: 650px) {
   .card-grid {
-    grid-template-columns: 1fr;
     gap: 4rem 0;
   }
 

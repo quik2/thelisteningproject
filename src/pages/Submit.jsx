@@ -166,23 +166,6 @@ function Submit() {
                 />
               </div>
 
-              {/* Preview */}
-              <div className="preview-section">
-                <h2 className="section-title">Preview</h2>
-                <div className="preview-card">
-                  <div className="preview-album">
-                    <img src={selectedTrack.albumCover} alt={selectedTrack.albumName} />
-                  </div>
-                  <div className="preview-text">
-                    <div className="preview-header">
-                      <h3>{selectedTrack.songName}</h3>
-                      <p className="preview-artist">{selectedTrack.artistName}</p>
-                    </div>
-                    <p className="preview-story">{userText || 'Your story will appear here...'}</p>
-                  </div>
-                </div>
-              </div>
-
               <button
                 className="submit-btn"
                 onClick={handleSubmit}
