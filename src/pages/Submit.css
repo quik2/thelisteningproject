@@ -187,6 +187,19 @@
   color: #6b5d52;
 }
 
+.type-badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  font-style: normal;
+  color: #8b7a6b;
+  background: #f5f1eb;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  margin-right: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
 .preview-badge {
   margin-left: 0.5rem;
   font-size: 0.9rem;

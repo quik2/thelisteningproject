@@ -58,7 +58,7 @@ export default async function handler(req, res) {
 
     const params = new URLSearchParams({
       q: query,
-      type: 'track',
+      type: 'track,album',
       limit: limit,
       market: 'GB',
     });
@@ -77,7 +77,27 @@ export default async function handler(req, res) {
     }
 
     const data = await response.json();
-    return res.status(200).json(data.tracks.items);
+
+    // Combine tracks and albums into a single array with type indicator
+    const tracks = (data.tracks?.items || []).map(track => ({
+      ...track,
+      type: 'track'
+    }));
+
+    const albums = (data.albums?.items || []).map(album => ({
+      ...album,
+      type: 'album'
+    }));
+
+    // Interleave tracks and albums for better results
+    const results = [];
+    const maxLength = Math.max(tracks.length, albums.length);
+    for (let i = 0; i < maxLength; i++) {
+      if (i < tracks.length) results.push(tracks[i]);
+      if (i < albums.length) results.push(albums[i]);
+    }
+
+    return res.status(200).json(results.slice(0, parseInt(limit)));
   } catch (error) {
     console.error('Search error:', error);
     return res.status(500).json({ error: error.message || 'Unknown error' });

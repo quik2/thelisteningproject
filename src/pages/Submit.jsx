@@ -38,14 +38,28 @@ function Submit() {
     return () => clearTimeout(timeoutId);
   }, [searchQuery]);
 
-  const handleSelectTrack = (track) => {
-    setSelectedTrack({
-      songName: track.name,
-      artistName: track.artists.map(a => a.name).join(', '),
-      albumName: track.album.name,
-      albumCover: track.album.images[0]?.url || '',
-      previewUrl: track.preview_url || null,
-    });
+  const handleSelectTrack = (item) => {
+    if (item.type === 'album') {
+      // Handle album selection
+      setSelectedTrack({
+        songName: item.name,
+        artistName: item.artists.map(a => a.name).join(', '),
+        albumName: item.name,
+        albumCover: item.images[0]?.url || '',
+        previewUrl: null, // Albums don't have preview URLs
+        isAlbum: true
+      });
+    } else {
+      // Handle track selection
+      setSelectedTrack({
+        songName: item.name,
+        artistName: item.artists.map(a => a.name).join(', '),
+        albumName: item.album.name,
+        albumCover: item.album.images[0]?.url || '',
+        previewUrl: item.preview_url || null,
+        isAlbum: false
+      });
+    }
     setSearchResults([]);
     setSearchQuery('');
   };
@@ -91,15 +105,15 @@ function Submit() {
       <Header onRandom={handleRandom} />
       <div className="submit-container">
         <div className="submit-form">
-          {/* Song Search */}
+          {/* Song/Album Search */}
           {!selectedTrack && (
             <div className="search-section">
-              <h2 className="section-title">1. Find Your Song</h2>
+              <h2 className="section-title">1. Find Your Song or Album</h2>
               <div className="search-input-wrapper">
                 <input
                   type="text"
                   className="submit-input"
-                  placeholder="Search for a song or artist..."
+                  placeholder="Search for a song, album, or artist..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -108,24 +122,28 @@ function Submit() {
 
               {searchResults.length > 0 && (
                 <div className="search-results">
-                  {searchResults.map((track) => (
+                  {searchResults.map((item) => (
                     <div
-                      key={track.id}
+                      key={item.id}
                       className="result-item"
-                      onClick={() => handleSelectTrack(track)}
+                      onClick={() => handleSelectTrack(item)}
                     >
                       <img
-                        src={track.album.images[2]?.url || track.album.images[0]?.url}
-                        alt={track.album.name}
+                        src={item.type === 'album'
+                          ? (item.images[2]?.url || item.images[0]?.url)
+                          : (item.album.images[2]?.url || item.album.images[0]?.url)
+                        }
+                        alt={item.type === 'album' ? item.name : item.album.name}
                         className="result-image"
                       />
                       <div className="result-info">
                         <div className="result-name">
-                          {track.name}
-                          {track.preview_url && <span className="preview-badge">🎵</span>}
+                          {item.type === 'album' && <span className="type-badge">ALBUM</span>}
+                          {item.name}
+                          {item.type === 'track' && item.preview_url && <span className="preview-badge">🎵</span>}
                         </div>
                         <div className="result-artist">
-                          {track.artists.map(a => a.name).join(', ')}
+                          {item.artists.map(a => a.name).join(', ')}
                         </div>
                       </div>
                     </div>
