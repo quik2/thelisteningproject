@@ -55,6 +55,7 @@
   gap: 4rem 3rem;
   padding: 2rem 0;
   justify-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 650px) {

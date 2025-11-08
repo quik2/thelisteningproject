@@ -160,9 +160,7 @@ function Home() {
       </Header>
 
       <div className="home-content">
-        {loading ? (
-          <div className="loading">Loading submissions...</div>
-        ) : filteredSubmissions.length === 0 ? (
+        {filteredSubmissions.length === 0 && !loading ? (
           <div className="no-results">No submissions found</div>
         ) : (
           <div className="card-grid">
