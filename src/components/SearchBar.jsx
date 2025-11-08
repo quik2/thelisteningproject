@@ -14,6 +14,7 @@ function SearchBar({
   const [showDropdown, setShowDropdown] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
+  const [chipHighlighted, setChipHighlighted] = useState(false);
   const searchBarRef = useRef(null);
   const chipRef = useRef(null);
 
@@ -25,6 +26,13 @@ function SearchBar({
       setShowDropdown(false);
     }
   }, [query, activeFilter]);
+
+  // Trigger search when typing with active filter
+  useEffect(() => {
+    if (activeFilter) {
+      onSearch(query);
+    }
+  }, [query, activeFilter, onSearch]);
 
   // Click outside handler
   useEffect(() => {
@@ -48,11 +56,23 @@ function SearchBar({
   };
 
   const handleKeyDown = (e) => {
-    // Delete filter chip with backspace when input is empty
+    // Handle backspace on filter chip
     if (e.key === 'Backspace' && !query && activeFilter) {
       e.preventDefault();
-      onClearFilter();
+      if (chipHighlighted) {
+        // Second backspace - delete the chip
+        onClearFilter();
+        setChipHighlighted(false);
+      } else {
+        // First backspace - highlight the chip
+        setChipHighlighted(true);
+      }
       return;
+    }
+
+    // Un-highlight chip when typing
+    if (chipHighlighted && e.key.length === 1) {
+      setChipHighlighted(false);
     }
 
     if (e.key === 'Enter') {
@@ -72,6 +92,7 @@ function SearchBar({
     setQuery('');
     setShowDropdown(false);
     setHasSearched(false);
+    setChipHighlighted(false);
     onFilterSelect(type, value, displayName);
   };
 
@@ -88,12 +109,15 @@ function SearchBar({
       <div className={`search-bar ${activeFilter ? 'has-filter' : ''} ${isSearching ? 'searching' : ''}`}>
         <div className="search-input-wrapper">
           {activeFilter && (
-            <div className="filter-chip-inline" ref={chipRef}>
+            <div className={`filter-chip-inline ${chipHighlighted ? 'highlighted' : ''}`} ref={chipRef}>
               <span className="filter-chip-type">{activeFilter.type}:</span>
               <span className="filter-chip-name">{activeFilter.displayName}</span>
               <button
                 className="filter-chip-remove"
-                onClick={onClearFilter}
+                onClick={() => {
+                  onClearFilter();
+                  setChipHighlighted(false);
+                }}
                 aria-label="Remove filter"
               >
                 ×
@@ -103,10 +127,14 @@ function SearchBar({
           <input
             type="text"
             className="search-input"
-            placeholder={activeFilter ? 'Search within...' : placeholder}
+            placeholder={activeFilter ? '' : placeholder}
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setChipHighlighted(false);
+            }}
             onKeyDown={handleKeyDown}
+            onClick={() => setChipHighlighted(false)}
           />
         </div>
         {(query || activeFilter) && (

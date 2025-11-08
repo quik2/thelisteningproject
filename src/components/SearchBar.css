@@ -46,6 +46,17 @@
   white-space: nowrap;
   pointer-events: none;
   z-index: 1;
+  transition: all 0.15s ease;
+}
+
+.filter-chip-inline.highlighted {
+  background-color: #8b7a6b;
+  border-color: #8b7a6b;
+}
+
+.filter-chip-inline.highlighted .filter-chip-type,
+.filter-chip-inline.highlighted .filter-chip-name {
+  color: #ffffff;
 }
 
 .filter-chip-type {
