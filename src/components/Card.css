@@ -1,0 +1,320 @@
+.card-container {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  height: 420px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 30px;
+  overflow: visible;
+  opacity: 0;
+  animation: professionalFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes professionalFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-container:nth-child(1) { animation-delay: 0s; }
+.card-container:nth-child(2) { animation-delay: 0.03s; }
+.card-container:nth-child(3) { animation-delay: 0.06s; }
+.card-container:nth-child(4) { animation-delay: 0.09s; }
+.card-container:nth-child(5) { animation-delay: 0.12s; }
+.card-container:nth-child(6) { animation-delay: 0.15s; }
+.card-container:nth-child(7) { animation-delay: 0.18s; }
+.card-container:nth-child(8) { animation-delay: 0.21s; }
+.card-container:nth-child(9) { animation-delay: 0.24s; }
+.card-container:nth-child(10) { animation-delay: 0.27s; }
+.card-container:nth-child(n+11) { animation-delay: 0.3s; }
+
+/* Album Sleeve */
+.vinyl-sleeve {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  z-index: 2;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.15),
+    0 16px 32px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.vinyl-sleeve::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  pointer-events: none;
+}
+
+.vinyl-sleeve img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Vinyl Record */
+.vinyl-record {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) translateX(280px);
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: #0a0a0a;
+  box-shadow:
+    0 0 0 1px #000,
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  z-index: 1;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.card-container:hover .vinyl-record {
+  transform: translateY(-50%) translateX(295px);
+}
+
+/* Vinyl grooves effect - much more prominent */
+.vinyl-record::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-image:
+    repeating-radial-gradient(
+      circle at center,
+      #000 0px,
+      #0a0a0a 1px,
+      #111 2px,
+      #0a0a0a 3px,
+      #000 4px
+    );
+  opacity: 1;
+  mask-image: radial-gradient(circle at center,
+    transparent 0px,
+    transparent 115px,
+    black 120px,
+    black 100%);
+}
+
+/* Glossy shine and reflection */
+.vinyl-record::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      ellipse 100% 40% at 50% 20%,
+      rgba(255, 255, 255, 0.12) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 30% 50% at 25% 50%,
+      rgba(255, 255, 255, 0.08) 0%,
+      transparent 40%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.03) 0%,
+      transparent 30%,
+      transparent 70%,
+      rgba(0, 0, 0, 0.3) 100%
+    );
+  pointer-events: none;
+}
+
+/* Record Center Label */
+.record-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 40% 40%,
+      #2a2a2a 0%,
+      #1a1a1a 60%,
+      #0f0f0f 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 0 3px rgba(0, 0, 0, 0.6),
+    0 0 0 4px rgba(255, 255, 255, 0.03),
+    inset 0 0 30px rgba(0, 0, 0, 0.5),
+    inset 0 2px 8px rgba(0, 0, 0, 0.8),
+    0 6px 20px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+/* Center spindle hole - behind text */
+.record-center::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 35%,
+      rgba(10, 10, 10, 0.4) 0%,
+      rgba(0, 0, 0, 0.3) 100%);
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(0, 0, 0, 0.2);
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.record-label {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.label-content {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.record-song {
+  font-family: 'Lora', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.record-artist {
+  font-family: 'Lora', serif;
+  font-size: 0.88rem;
+  font-style: italic;
+  color: #d4d4d4;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.record-story {
+  font-family: 'Lora', serif;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: #e0e0e0;
+  margin: 8px 0 0 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.record-author {
+  font-family: 'Lora', serif;
+  font-size: 0.7rem;
+  font-style: italic;
+  color: #b8b8b8;
+  margin: 6px 0 0 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 650px) {
+  .card-container {
+    height: 300px;
+    padding: 15px;
+  }
+
+  .vinyl-sleeve {
+    width: 200px;
+    height: 200px;
+  }
+
+  .vinyl-record {
+    width: 240px;
+    height: 240px;
+    transform: translateY(-50%) translateX(160px);
+  }
+
+  .vinyl-record:hover {
+    transform: translateY(-50%) translateX(175px);
+  }
+
+  .record-center {
+    width: 180px;
+    height: 180px;
+  }
+
+  .record-label {
+    padding: 25px;
+  }
+
+  .record-song {
+    font-size: 0.95rem;
+  }
+
+  .record-artist {
+    font-size: 0.8rem;
+  }
+
+  .record-story {
+    font-size: 0.75rem;
+    -webkit-line-clamp: 4;
+  }
+
+  .record-author {
+    font-size: 0.7rem;
+  }
+}

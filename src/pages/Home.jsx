@@ -1,0 +1,166 @@
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import Header from '../components/Header';
+import SearchBar from '../components/SearchBar';
+import Card from '../components/Card';
+import Modal from '../components/Modal';
+import './Home.css';
+
+function Home() {
+  const [submissions, setSubmissions] = useState([]);
+  const [filteredSubmissions, setFilteredSubmissions] = useState([]);
+  const [selectedSubmission, setSelectedSubmission] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [sortBy, setSortBy] = useState('most-recent');
+  const [isRandomMode, setIsRandomMode] = useState(false);
+  const [searchParams] = useSearchParams();
+  const lastRandomParam = useRef(null);
+
+  useEffect(() => {
+    fetchSubmissions();
+  }, []);
+
+  useEffect(() => {
+    // Handle random submission view
+    const randomParam = searchParams.get('random');
+    if (randomParam && randomParam !== lastRandomParam.current && submissions.length > 0) {
+      lastRandomParam.current = randomParam;
+      const randomIndex = Math.floor(Math.random() * submissions.length);
+      setSelectedSubmission(submissions[randomIndex]);
+    }
+  }, [searchParams, submissions]);
+
+  useEffect(() => {
+    // Sort submissions whenever sortBy changes
+    sortSubmissions(filteredSubmissions);
+  }, [sortBy]);
+
+  const fetchSubmissions = async () => {
+    try {
+      const response = await fetch('/api/submissions');
+      const data = await response.json();
+      setSubmissions(data);
+      sortSubmissions(data);
+    } catch (error) {
+      console.error('Error fetching submissions:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const sortSubmissions = (subs) => {
+    const sorted = [...subs].sort((a, b) => {
+      switch (sortBy) {
+        case 'most-liked':
+          return (b.likes || 0) - (a.likes || 0);
+        case 'most-recent':
+          return new Date(b.timestamp) - new Date(a.timestamp);
+        case 'most-old':
+          return new Date(a.timestamp) - new Date(b.timestamp);
+        default:
+          return 0;
+      }
+    });
+    setFilteredSubmissions(sorted);
+  };
+
+  const handleRandom = () => {
+    if (submissions.length > 0) {
+      const randomIndex = Math.floor(Math.random() * submissions.length);
+      setSelectedSubmission(submissions[randomIndex]);
+      setIsRandomMode(true);
+    }
+  };
+
+  const handleNextRandom = () => {
+    if (submissions.length > 0) {
+      const randomIndex = Math.floor(Math.random() * submissions.length);
+      setSelectedSubmission(submissions[randomIndex]);
+      setIsRandomMode(true);
+    }
+  };
+
+  const handleCardClick = (submission) => {
+    setSelectedSubmission(submission);
+    setIsRandomMode(false);
+  };
+
+  const handleLikeUpdate = (submissionId, newLikes) => {
+    // Update the submissions in state
+    const updateSubmissions = (subs) =>
+      subs.map(sub =>
+        sub.id === submissionId ? { ...sub, likes: newLikes } : sub
+      );
+
+    setSubmissions(prev => updateSubmissions(prev));
+    setFilteredSubmissions(prev => updateSubmissions(prev));
+    if (selectedSubmission?.id === submissionId) {
+      setSelectedSubmission(prev => ({ ...prev, likes: newLikes }));
+    }
+  };
+
+  const handleSearch = useCallback((query) => {
+    let filtered;
+    if (!query || !query.trim()) {
+      filtered = submissions;
+    } else {
+      const searchQuery = query.toLowerCase();
+      filtered = submissions.filter(submission =>
+        submission.songName.toLowerCase().includes(searchQuery) ||
+        submission.artistName.toLowerCase().includes(searchQuery) ||
+        submission.albumName.toLowerCase().includes(searchQuery) ||
+        submission.userText.toLowerCase().includes(searchQuery) ||
+        submission.submittedBy.toLowerCase().includes(searchQuery)
+      );
+    }
+    sortSubmissions(filtered);
+  }, [submissions, sortBy]);
+
+  return (
+    <div className="home">
+      <Header onRandom={handleRandom}>
+        <div className="search-sort-container">
+          <SearchBar onSearch={handleSearch} />
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="sort-dropdown"
+          >
+            <option value="most-recent">Most Recent</option>
+            <option value="most-old">Oldest</option>
+            <option value="most-liked">Most Liked</option>
+          </select>
+        </div>
+      </Header>
+
+      <div className="home-content">
+        {loading ? (
+          <div className="loading">Loading submissions...</div>
+        ) : filteredSubmissions.length === 0 ? (
+          <div className="no-results">No submissions found</div>
+        ) : (
+          <div className="card-grid">
+            {filteredSubmissions.map((submission) => (
+              <Card
+                key={submission.id}
+                submission={submission}
+                onClick={handleCardClick}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+
+      {selectedSubmission && (
+        <Modal
+          submission={selectedSubmission}
+          onClose={() => setSelectedSubmission(null)}
+          onLikeUpdate={handleLikeUpdate}
+          onNext={isRandomMode ? handleNextRandom : null}
+        />
+      )}
+    </div>
+  );
+}
+
+export default Home;

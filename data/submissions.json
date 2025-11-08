@@ -1,0 +1,121 @@
+[
+  {
+    "id": "1762567310631",
+    "songName": "American Pie",
+    "artistName": "Don McLean",
+    "albumName": "American Pie",
+    "albumCover": "https://i.scdn.co/image/ab67616d0000b2730085dd4362653ef4c54ebbeb",
+    "previewUrl": null,
+    "userText": "Whenever I think of this song, I think of AMERICA.",
+    "submittedBy": "Anonymous",
+    "timestamp": "2025-11-08T02:01:50.631Z",
+    "likes": 1
+  },
+  {
+    "id": "1762564711438",
+    "songName": "Songbird",
+    "artistName": "Oasis",
+    "albumName": "Heathen Chemistry",
+    "albumCover": "https://i.scdn.co/image/ab67616d0000b273bd14866d69108524bc32fb37",
+    "previewUrl": null,
+    "userText": "test",
+    "submittedBy": "Anonymous",
+    "timestamp": "2025-11-08T01:18:31.438Z",
+    "likes": 1
+  },
+  {
+    "id": "1762559749405",
+    "songName": "Vienna",
+    "artistName": "Billy Joel",
+    "albumName": "The Stranger (Legacy Edition)",
+    "albumCover": "https://i.scdn.co/image/ab67616d0000b2736ce61113662ecf693b605ee5",
+    "userText": "This is a song that makes me think about this.",
+    "submittedBy": "Anonymous",
+    "timestamp": "2025-11-07T23:55:49.405Z",
+    "likes": 1
+  },
+  {
+    "id": "1762559000820",
+    "songName": "Space Oddity - 2015 Remaster",
+    "artistName": "David Bowie",
+    "albumName": "David Bowie (aka Space Oddity) [2015 Remaster]",
+    "albumCover": "https://i.scdn.co/image/ab67616d0000b2733395f3e809dfbc2b1101d464",
+    "userText": "I was 11 when I first heard this song. I can still remember being blown away by how powerful it was.",
+    "submittedBy": "Anonymous",
+    "timestamp": "2025-11-07T23:43:20.820Z",
+    "likes": 1
+  },
+  {
+    "id": "1762553560576",
+    "songName": "Gold Digger",
+    "artistName": "Kanye West, Jamie Foxx",
+    "albumName": "Late Registration",
+    "albumCover": "https://i.scdn.co/image/ab67616d0000b273428d2255141c2119409a31b2",
+    "userText": "This song means everything to me.",
+    "submittedBy": "Quinn",
+    "timestamp": "2025-11-07T22:12:40.576Z",
+    "likes": 1
+  },
+  {
+    "id": "1",
+    "songName": "Here Comes The Sun",
+    "artistName": "The Beatles",
+    "albumName": "Abbey Road",
+    "albumCover": "https://upload.wikimedia.org/wikipedia/en/4/42/Beatles_-_Abbey_Road.jpg",
+    "userText": "This song reminds me of my grandmother's garden. Every summer morning, she'd hum this while watering her roses. Now whenever I hear it, I'm transported back to those peaceful moments, the smell of earth and flowers, and her gentle smile.",
+    "submittedBy": "Sarah",
+    "timestamp": "2024-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "2",
+    "songName": "Ivy",
+    "artistName": "Frank Ocean",
+    "albumName": "Blonde",
+    "albumCover": "https://upload.wikimedia.org/wikipedia/en/a/a0/Blonde_-_Frank_Ocean.jpeg",
+    "userText": "Late night drives through empty streets, windows down, this song on repeat. It was the summer everything changed—graduated, moved cities, fell in love, fell apart. This song was there through all of it.",
+    "submittedBy": "Marcus",
+    "timestamp": "2024-01-20T14:45:00.000Z",
+    "likes": 0
+  },
+  {
+    "id": "3",
+    "songName": "No Surprises",
+    "artistName": "Radiohead",
+    "albumName": "OK Computer",
+    "albumCover": "https://upload.wikimedia.org/wikipedia/en/b/ba/Radioheadokcomputer.png",
+    "userText": "Found this during my hardest semester. The calm melody contrasted with the weight of the lyrics felt like someone finally understood. Played it on loop in my dorm room, staring at the ceiling, finding peace in the melancholy.",
+    "submittedBy": "Alex",
+    "timestamp": "2024-02-01T09:15:00.000Z",
+    "likes": 1
+  },
+  {
+    "id": "5",
+    "songName": "Creep",
+    "artistName": "Radiohead",
+    "albumName": "Pablo Honey",
+    "albumCover": "https://upload.wikimedia.org/wikipedia/en/0/0f/Radiohead.pablohoney.albumart.jpg",
+    "userText": "High school. Felt like an outsider every single day. This song was proof someone out there understood. Twenty years later and I still can't listen to it without feeling 16 again - isolated but somehow less alone.",
+    "submittedBy": "River",
+    "timestamp": "2024-04-01T18:20:00.000Z"
+  },
+  {
+    "id": "7",
+    "songName": "Bohemian Rhapsody",
+    "artistName": "Queen",
+    "albumName": "A Night at the Opera",
+    "albumCover": "https://upload.wikimedia.org/wikipedia/en/4/4d/Queen_A_Night_At_The_Opera.png",
+    "userText": "Road trips with my siblings. We'd wait for this song, roll down all the windows, and sing every part at the top of our lungs. Complete strangers at red lights would join in. Those were simpler times.",
+    "submittedBy": "Sam",
+    "timestamp": "2024-03-10T07:30:00.000Z"
+  },
+  {
+    "id": "8",
+    "songName": "Smells Like Teen Spirit",
+    "artistName": "Nirvana",
+    "albumName": "Nevermind",
+    "albumCover": "https://upload.wikimedia.org/wikipedia/en/b/b7/NirvanaNevermindalbumcover.jpg",
+    "userText": "Found my dad's old CD collection in the attic. Put this on and something just clicked. The raw energy, the angst—it was like someone from 30 years ago understood exactly what I was feeling. Music really is timeless.",
+    "submittedBy": "Dakota",
+    "timestamp": "2024-03-30T12:00:00.000Z"
+  }
+]

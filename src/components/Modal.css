@@ -1,0 +1,313 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(44, 44, 44, 0.85);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-overlay-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  background: #F5EFE6;
+  padding: 4rem;
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  border: none;
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: rgba(44, 44, 44, 0.1);
+  border: none;
+  font-size: 2rem;
+  line-height: 1;
+  color: #2c2c2c;
+  cursor: pointer;
+  padding: 0;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+}
+
+.modal-close:hover {
+  background: rgba(44, 44, 44, 0.2);
+  transform: rotate(90deg);
+}
+
+.modal-next-below {
+  position: absolute;
+  bottom: -5rem;
+  right: 0;
+  font-family: 'Lora', serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: #2c2c2c;
+  color: #F5EFE6;
+  border: 2px solid #2c2c2c;
+  padding: 0.75rem 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
+
+.modal-next-below:hover {
+  background: #F5EFE6;
+  color: #2c2c2c;
+}
+
+.modal-layout {
+  display: flex;
+  gap: 3rem;
+}
+
+.modal-album {
+  flex-shrink: 0;
+  width: 320px;
+  height: 320px;
+  position: relative;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.15),
+    0 16px 32px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.modal-album::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  pointer-events: none;
+}
+
+.modal-album img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.modal-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  border-bottom: 2px solid #2c2c2c;
+  padding-bottom: 0;
+  margin-bottom: 2.5rem;
+}
+
+.modal-song {
+  font-family: 'Lora', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #2c2c2c;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.modal-artist {
+  font-family: 'Lora', serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  color: #4a4a4a;
+  margin: 0 0 1rem 0;
+  font-weight: 400;
+}
+
+.modal-like-section {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 0.25rem;
+  min-height: 2rem;
+  align-items: center;
+}
+
+.modal-album-name {
+  font-family: 'Lora', serif;
+  font-size: 1rem;
+  color: #8b7a6b;
+  margin: 0 0 1rem 0;
+}
+
+.modal-audio-player {
+  margin-top: 1rem;
+}
+
+.modal-audio-player audio {
+  width: 100%;
+  height: 40px;
+  outline: none;
+}
+
+.modal-audio-player audio::-webkit-media-controls-panel {
+  background-color: #f5f1eb;
+}
+
+.modal-audio-player audio::-webkit-media-controls-play-button,
+.modal-audio-player audio::-webkit-media-controls-pause-button {
+  background-color: #8b7a6b;
+  border-radius: 50%;
+}
+
+.modal-audio-player audio::-webkit-media-controls-current-time-display,
+.modal-audio-player audio::-webkit-media-controls-time-remaining-display {
+  font-family: 'Lora', serif;
+  color: #4a4a4a;
+}
+
+.modal-story {
+  font-family: 'Lora', serif;
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: #2c2c2c;
+}
+
+.modal-story p {
+  margin: 0;
+}
+
+.like-button {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Lora', serif;
+  font-size: 0.95rem;
+  color: #8b7a6b;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.like-button:hover {
+  color: #2c2c2c;
+}
+
+.like-button.liked {
+  color: #2c2c2c;
+}
+
+.like-icon {
+  font-size: 1.2rem;
+  transition: color 0.2s ease;
+}
+
+.like-button.liked .like-icon {
+  color: #d4a574;
+}
+
+.like-count {
+  font-size: 0.9rem;
+  min-width: 30px;
+  text-align: left;
+}
+
+.modal-author {
+  font-style: italic;
+  color: #8b7a6b;
+  text-align: right;
+  margin: 0 0 0.5rem 0 !important;
+}
+
+.modal-date {
+  font-size: 0.9rem;
+  color: #a8998c;
+  text-align: right;
+  margin: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .modal-overlay {
+    padding: 1rem;
+  }
+
+  .modal-content {
+    padding: 2rem 1.5rem;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-layout {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .modal-album {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .modal-song {
+    font-size: 1.5rem;
+  }
+
+  .modal-artist {
+    font-size: 1rem;
+  }
+
+  .modal-story {
+    font-size: 1rem;
+  }
+}
