@@ -39,6 +39,15 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
+.results-count {
+  text-align: center;
+  padding: 0.5rem 2rem 1rem;
+  font-family: 'Lora', serif;
+  font-size: 0.9rem;
+  color: #a89688;
+  font-style: italic;
+}
+
 .loading,
 .no-results {
   text-align: center;

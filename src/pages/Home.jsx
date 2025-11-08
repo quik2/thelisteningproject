@@ -160,6 +160,12 @@ function Home() {
       </Header>
 
       <div className="home-content">
+        {!loading && filteredSubmissions.length > 0 && (
+          <div className="results-count">
+            {filteredSubmissions.length} {filteredSubmissions.length === 1 ? 'result' : 'results'}
+          </div>
+        )}
+
         {filteredSubmissions.length === 0 && !loading ? (
           <div className="no-results">No submissions found</div>
         ) : (
