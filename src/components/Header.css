@@ -1,12 +1,12 @@
 .header-logo-container {
   position: absolute;
-  top: 2rem;
-  left: 2rem;
+  top: 1rem;
+  left: 1rem;
   z-index: 10;
 }
 
 .header-logo {
-  height: 280px;
+  height: 120px;
   display: block;
   filter: sepia(35%) brightness(0.95) contrast(1.05) saturate(0.9);
   transition: filter 0.3s ease;
