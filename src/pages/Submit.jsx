@@ -203,7 +203,7 @@ function Submit() {
                 onClick={handleSubmit}
                 disabled={!userText.trim() || submitting}
               >
-                {submitting ? 'Submitting...' : 'Submit to archive'}
+                {submitting ? 'Submitting...' : 'Add your record'}
               </button>
             </div>
           </div>

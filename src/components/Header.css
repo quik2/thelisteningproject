@@ -41,7 +41,7 @@
 
 .header-section {
   text-align: center;
-  padding: 8rem 2rem 4rem;
+  padding: 4rem 2rem 4rem;
   border-bottom: 1px solid #e8e0d5;
 }
 
@@ -142,7 +142,7 @@
   }
 
   .header-section {
-    padding: 6rem 1.5rem 3rem;
+    padding: 3rem 1.5rem 3rem;
   }
 
   .header-nav-links {
