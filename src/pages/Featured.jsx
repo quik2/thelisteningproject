@@ -47,26 +47,29 @@ function Featured() {
 
   return (
     <div className="featured-page">
-      <Header>
-        <div className="featured-container">
-          <h2 className="featured-title">Record of the Week</h2>
-          <p className="featured-description">
-            The most beloved memory from our community
-          </p>
-          {loading ? (
-            <div className="featured-loading">Loading...</div>
-          ) : featuredSubmission ? (
-            <div className="featured-card-wrapper">
-              <Card
-                submission={featuredSubmission}
-                onClick={handleCardClick}
-              />
-            </div>
-          ) : (
-            <div className="featured-empty">No submissions yet</div>
-          )}
-        </div>
-      </Header>
+      <Header />
+
+      <div className="featured-content">
+        <h2 className="featured-title">Record of the Week</h2>
+        <p className="featured-description">
+          The most beloved record from our community
+        </p>
+
+        {loading ? (
+          <div className="featured-card-wrapper">
+            {/* Show nothing while loading */}
+          </div>
+        ) : featuredSubmission ? (
+          <div className="featured-card-wrapper">
+            <Card
+              submission={featuredSubmission}
+              onClick={handleCardClick}
+            />
+          </div>
+        ) : (
+          <div className="featured-empty">No records yet</div>
+        )}
+      </div>
 
       {selectedSubmission && (
         <Modal
