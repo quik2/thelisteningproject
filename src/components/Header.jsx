@@ -11,7 +11,7 @@ function Header({ children, onRandom }) {
   return (
     <>
       <div className="header-logo-container">
-        <img src="/PROJECTLOGO.png" alt="Project Logo" className="header-logo" />
+        <img src="/logotest.jpg" alt="Project Logo" className="header-logo" />
       </div>
       <div className="header-section">
         <div className="header-nav-container">
