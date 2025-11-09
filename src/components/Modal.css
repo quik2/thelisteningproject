@@ -107,8 +107,9 @@
   flex: 1;
   min-height: 0;
   padding-right: 0.5rem;
-  scrollbar-width: thin;
-  scrollbar-color: #d4c5b9 transparent;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 @media (max-width: 900px) {
@@ -117,23 +118,9 @@
   }
 }
 
-/* Custom scrollbar for modal content */
+/* Hide scrollbar for modal content */
 .modal-layout::-webkit-scrollbar {
-  width: 8px;
-}
-
-.modal-layout::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.modal-layout::-webkit-scrollbar-thumb {
-  background: #d4c5b9;
-  border-radius: 4px;
-  transition: background 0.3s ease;
-}
-
-.modal-layout::-webkit-scrollbar-thumb:hover {
-  background: #c4b5a8;
+  display: none;
 }
 
 .modal-album {
@@ -391,10 +378,6 @@
     gap: 2rem;
     padding-right: 0;
     -webkit-overflow-scrolling: touch;
-  }
-
-  .modal-layout::-webkit-scrollbar {
-    width: 4px;
   }
 
   .modal-album {
