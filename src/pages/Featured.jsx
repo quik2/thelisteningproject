@@ -19,7 +19,7 @@ function Featured() {
       const data = await response.json();
 
       // Get the most liked submission
-      if (data.length > 0) {
+      if (data && data.length > 0) {
         const mostLiked = data.reduce((prev, current) =>
           (current.likes || 0) > (prev.likes || 0) ? current : prev
         );
@@ -45,9 +45,13 @@ function Featured() {
     }
   };
 
+  const handleRandom = () => {
+    // No random on featured page
+  };
+
   return (
     <div className="featured-page">
-      <Header />
+      <Header onRandom={handleRandom} />
 
       <div className="featured-content">
         <h2 className="featured-title">Record of the Week</h2>

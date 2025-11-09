@@ -28,7 +28,8 @@
       "Bash(git log:*)",
       "Bash(del Featured.jsx)",
       "Bash(del Featured.css)",
-      "Bash(del \"C:\\Users\\quinn\\OneDrive\\Documentos\\Code\\Listening Project\\src\\pages\\Featured.tsx\")"
+      "Bash(del \"C:\\Users\\quinn\\OneDrive\\Documentos\\Code\\Listening Project\\src\\pages\\Featured.tsx\")",
+      "Bash(node -c:*)"
     ],
     "deny": [],
     "ask": []
