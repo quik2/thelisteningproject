@@ -48,7 +48,7 @@ function About() {
       <Header onRandom={handleRandom} />
       <div className="about-container">
         <p className="about-text">
-          The Record Room is a collection of memories told through music. Each record holds a story—a song that marked a moment, an album that held someone together, a lyric that said what words couldn't. Together, these memories remind us that while our experiences are personal, the feelings they carry are shared. Add your record. Share your story.
+          The Record Room is a collection of memories told through music. Each record holds a story—a song that marked a moment, an album that held someone together, a lyric that said what words couldn't. Together, these memories remind us that while our experiences are personal, the feelings they carry are shared. <em>Add your record. Share your story.</em>
         </p>
         <div className="about-example">
           <Card
