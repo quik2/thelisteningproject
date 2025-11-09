@@ -99,7 +99,8 @@
 }
 
 .modal-layout {
-  display: flex;
+  display: grid;
+  grid-template-columns: 320px 1fr;
   gap: 3rem;
   overflow-y: auto;
   overflow-x: hidden;
@@ -108,7 +109,12 @@
   padding-right: 0.5rem;
   scrollbar-width: thin;
   scrollbar-color: #d4c5b9 transparent;
-  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .modal-layout {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Custom scrollbar for modal content */
@@ -131,12 +137,10 @@
 }
 
 .modal-album {
-  flex-shrink: 0;
   width: 320px;
   height: 320px;
   position: sticky;
   top: 0;
-  align-self: flex-start;
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.1),
     0 8px 16px rgba(0, 0, 0, 0.15),
@@ -144,15 +148,10 @@
     inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
-/* When text wraps below album, ensure it takes full width */
 @media (max-width: 900px) {
   .modal-album {
     position: relative;
     margin: 0 auto;
-  }
-
-  .modal-text {
-    flex: 1 1 100%;
   }
 }
 
