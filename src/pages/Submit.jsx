@@ -124,22 +124,22 @@ function Submit() {
             <div className="vinyl-display">
               <div className="realistic-vinyl">
                 <div className="vinyl-grooves"></div>
+                <svg className="outer-circular-text" viewBox="0 0 200 200">
+                  <defs>
+                    <path
+                      id="outerCirclePath"
+                      d="M 100, 100 m -95, 0 a 95,95 0 1,1 190,0 a 95,95 0 1,1 -190,0"
+                    />
+                  </defs>
+                  <text className="engraved-text-outer">
+                    <textPath href="#outerCirclePath" startOffset="0%">
+                      THE RECORD ROOM • THE RECORD ROOM • THE RECORD ROOM • THE RECORD ROOM •
+                    </textPath>
+                  </text>
+                </svg>
                 <div className="vinyl-label">
-                  <svg className="circular-text" viewBox="0 0 200 200">
-                    <defs>
-                      <path
-                        id="circlePath"
-                        d="M 100, 100 m -75, 0 a 75,75 0 1,1 150,0 a 75,75 0 1,1 -150,0"
-                      />
-                    </defs>
-                    <text className="engraved-text">
-                      <textPath href="#circlePath" startOffset="0%">
-                        THE RECORD ROOM • THE RECORD ROOM • THE RECORD ROOM •
-                      </textPath>
-                    </text>
-                  </svg>
+                  <div className="center-hole"></div>
                 </div>
-                <div className="center-hole"></div>
               </div>
             </div>
             <div className="search-input-wrapper centered-search">

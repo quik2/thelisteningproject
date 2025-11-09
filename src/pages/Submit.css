@@ -29,7 +29,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: -80px;
   z-index: 1;
 }
 
@@ -40,14 +39,14 @@
   height: 100%;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 30% 30%, #1a1a1a 0%, #000000 100%);
+    radial-gradient(circle at 35% 35%, #2a2520 0%, #1a1612 50%, #0a0805 100%);
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.9),
     0 8px 32px rgba(0, 0, 0, 0.6),
     0 16px 64px rgba(0, 0, 0, 0.4),
-    inset 0 1px 2px rgba(255, 255, 255, 0.08),
+    inset 0 1px 2px rgba(139, 122, 107, 0.1),
     inset 0 -2px 8px rgba(0, 0, 0, 0.8);
-  animation: slowSpin 12s linear infinite;
+  animation: slowSpin 20s linear infinite;
 }
 
 /* Vinyl grooves - much more realistic */
@@ -74,7 +73,7 @@
   );
 }
 
-/* Add glossy reflection */
+/* Add vintage glossy reflection */
 .realistic-vinyl::before {
   content: '';
   position: absolute;
@@ -83,23 +82,45 @@
   background:
     radial-gradient(
       ellipse 120% 50% at 50% 20%,
-      rgba(255, 255, 255, 0.15) 0%,
+      rgba(212, 197, 185, 0.08) 0%,
       transparent 50%
     ),
     radial-gradient(
       ellipse 40% 60% at 25% 40%,
-      rgba(255, 255, 255, 0.08) 0%,
+      rgba(139, 122, 107, 0.05) 0%,
       transparent 40%
     ),
     linear-gradient(
       to bottom,
-      rgba(255, 255, 255, 0.04) 0%,
+      rgba(139, 122, 107, 0.03) 0%,
       transparent 40%,
       transparent 60%,
-      rgba(0, 0, 0, 0.4) 100%
+      rgba(0, 0, 0, 0.5) 100%
     );
   pointer-events: none;
   z-index: 3;
+}
+
+/* Outer circular text - more visible */
+.outer-circular-text {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: slowSpin 20s linear infinite;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.engraved-text-outer {
+  fill: #d4c5b9;
+  font-family: 'Lora', serif;
+  font-size: 6.5px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.4;
 }
 
 /* Center label area */
@@ -108,46 +129,24 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 42%;
-  height: 42%;
+  width: 38%;
+  height: 38%;
   border-radius: 50%;
   background:
     radial-gradient(circle at 35% 35%,
-      #2a2a2a 0%,
-      #1a1a1a 50%,
-      #0f0f0f 100%);
+      #3a3228 0%,
+      #2a251e 50%,
+      #1a1612 100%);
   box-shadow:
-    0 0 0 2px rgba(0, 0, 0, 0.8),
-    0 0 0 3px rgba(255, 255, 255, 0.03),
-    inset 0 0 40px rgba(0, 0, 0, 0.6),
+    0 0 0 2px rgba(139, 122, 107, 0.15),
+    0 0 0 3px rgba(0, 0, 0, 0.6),
+    inset 0 0 40px rgba(0, 0, 0, 0.7),
     inset 0 3px 12px rgba(0, 0, 0, 0.9),
     0 8px 24px rgba(0, 0, 0, 0.6);
-  z-index: 2;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* Circular text */
-.circular-text {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  animation: slowSpin 12s linear infinite;
-}
-
-.engraved-text {
-  fill: rgba(255, 255, 255, 0.12);
-  font-family: 'Lora', serif;
-  font-size: 7.5px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  text-shadow:
-    0 1px 1px rgba(0, 0, 0, 0.8),
-    0 -1px 1px rgba(255, 255, 255, 0.05);
 }
 
 /* Center spindle hole */
@@ -235,30 +234,33 @@
 }
 
 .search-input-wrapper {
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 10;
   width: 100%;
+  max-width: 380px;
 }
 
 .search-input-wrapper.centered-search {
-  max-width: 450px;
-  margin: 0 auto;
+  max-width: 380px;
 }
 
 .submit-search-input {
   width: 100%;
-  padding: 1.25rem 1.5rem;
+  padding: 1rem 1.5rem;
   font-family: 'Lora', serif;
-  font-size: 1.25rem;
-  border: 2px solid #d4c5b9;
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(8px);
-  border-radius: 8px;
+  font-size: 1.1rem;
+  border: 2px solid #8b7a6b;
+  background: #fdfcfb;
+  border-radius: 2px;
   transition: all 0.3s ease;
   text-align: center;
   box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.12),
-    0 8px 40px rgba(0, 0, 0, 0.08);
+    0 2px 8px rgba(0, 0, 0, 0.15),
+    inset 0 1px 2px rgba(139, 122, 107, 0.1);
+  color: #2c2c2c;
 }
 
 .submit-search-input::placeholder {
@@ -268,9 +270,10 @@
 
 .submit-search-input:focus {
   outline: none;
-  border-color: #2c2c2c;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  transform: translateY(-2px);
+  border-color: #6b5d52;
+  box-shadow:
+    0 3px 12px rgba(0, 0, 0, 0.2),
+    inset 0 1px 2px rgba(139, 122, 107, 0.15);
 }
 
 .searching-indicator {
