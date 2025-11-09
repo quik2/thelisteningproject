@@ -11,12 +11,14 @@ function Card({ submission, onClick }) {
             loading="lazy"
             decoding="async"
           />
+          <div className="album-info">
+            <h3 className="album-song">{submission.songName}</h3>
+            <p className="album-artist">{submission.artistName}</p>
+          </div>
         </div>
         <div className="vinyl-record"></div>
       </div>
       <div className="card-text">
-        <h3 className="card-song">{submission.songName}</h3>
-        <p className="card-artist">{submission.artistName}</p>
         <p className="card-story">{submission.userText}</p>
         <p className="card-author">— {submission.submittedBy}</p>
       </div>
