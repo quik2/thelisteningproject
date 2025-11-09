@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Modal from '../components/Modal';
-import Card from '../components/Card';
 import './Submit.css';
 
 function Submit() {
@@ -195,24 +194,6 @@ function Submit() {
                 isPreview={true}
                 isEditable={true}
                 onTextChange={setUserText}
-              />
-            </div>
-
-            <div className="preview-card-container">
-              <Card
-                submission={{
-                  id: 'preview',
-                  songName: selectedTrack.songName,
-                  artistName: selectedTrack.artistName,
-                  albumName: selectedTrack.albumName,
-                  albumCover: selectedTrack.albumCover,
-                  previewUrl: selectedTrack.previewUrl,
-                  userText: userText || '',
-                  submittedBy: 'Anonymous',
-                  timestamp: new Date().toISOString(),
-                  likes: 0
-                }}
-                onClick={() => {}}
               />
             </div>
 

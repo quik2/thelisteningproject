@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import './Modal.css';
 
 function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious, isPreview = false, isEditable = false, onTextChange }) {
   const [likes, setLikes] = useState(submission.likes || 0);
   const [hasLiked, setHasLiked] = useState(false);
   const [isLiking, setIsLiking] = useState(false);
+  const textareaRef = useRef(null);
 
   useEffect(() => {
     // Update likes when submission changes
@@ -38,6 +39,15 @@ function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious, isPrevie
       return () => window.removeEventListener('keydown', handleEscape);
     }
   }, [onClose, isPreview]);
+
+  // Auto-resize textarea
+  useEffect(() => {
+    if (isEditable && textareaRef.current) {
+      const textarea = textareaRef.current;
+      textarea.style.height = 'auto';
+      textarea.style.height = textarea.scrollHeight + 'px';
+    }
+  }, [submission.userText, isEditable]);
 
   const handleLike = async () => {
     // Prevent multiple simultaneous requests
@@ -170,6 +180,7 @@ function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious, isPrevie
           <div className="modal-story">
             {isEditable ? (
               <textarea
+                ref={textareaRef}
                 className="modal-story-textarea"
                 placeholder="Type your memory here..."
                 value={submission.userText}

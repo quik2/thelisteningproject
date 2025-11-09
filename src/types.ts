@@ -36,4 +36,5 @@ export interface Submission {
   userText: string;
   submittedBy: string;
   timestamp: string;
+  likes?: number;
 }

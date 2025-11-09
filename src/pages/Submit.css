@@ -18,19 +18,20 @@
 .submit-search-title {
   font-family: 'Lora', serif;
   font-size: 2.5rem;
-  font-weight: 400;
+  font-weight: 300;
   color: #2c2c2c;
   margin: 0 0 2rem 0;
   text-align: center;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 /* Preview section - shown after track selection */
 .submit-preview-section {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
-  padding: 2rem 0;
+  gap: 2rem;
+  padding: 0;
+  margin-top: 2rem;
 }
 
 .change-track-btn {
@@ -51,11 +52,6 @@
 
 .preview-modal-container {
   width: 100%;
-}
-
-.preview-card-container {
-  width: 280px;
-  margin: 0 auto;
 }
 
 .section-label {
