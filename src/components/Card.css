@@ -86,14 +86,14 @@
     0 1px 3px rgba(0, 0, 0, 0.7);
 }
 
-/* Vinyl Record - peeking out (smaller) */
+/* Vinyl Record - peeking out */
 .vinyl-record {
   position: absolute;
-  right: -50px;
+  right: -55px;
   top: 50%;
   transform: translateY(-50%);
-  width: 240px;
-  height: 240px;
+  width: 270px;
+  height: 270px;
   border-radius: 50%;
   background:
     radial-gradient(circle at 30% 30%, #1a1a1a 0%, #0a0a0a 40%, #000000 100%);
@@ -170,14 +170,29 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  padding-top: 0.5rem;
+  padding: 1.5rem 1.75rem;
   min-width: 0;
+  background: linear-gradient(135deg, rgba(245, 241, 235, 0.4) 0%, rgba(255, 255, 255, 0.2) 100%);
+  border-left: 3px solid #d4c5b9;
+  position: relative;
+}
+
+.card-text::before {
+  content: '"';
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  font-family: 'Georgia', serif;
+  font-size: 4rem;
+  line-height: 1;
+  color: rgba(212, 197, 185, 0.3);
+  font-weight: 700;
 }
 
 .card-story {
   font-family: 'Lora', serif;
-  font-size: 1rem;
-  line-height: 1.7;
+  font-size: 1.05rem;
+  line-height: 1.75;
   color: #2c2c2c;
   margin: 0;
   display: -webkit-box;
@@ -185,14 +200,25 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  position: relative;
+  z-index: 1;
+}
+
+.card-story::first-letter {
+  font-size: 1.4em;
+  font-weight: 600;
+  color: #8b7a6b;
 }
 
 .card-author {
   font-family: 'Lora', serif;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-style: italic;
   color: #8b7a6b;
-  margin: 0.5rem 0 0 0;
+  margin: 0.75rem 0 0 0;
+  text-align: right;
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 650px) {
@@ -224,7 +250,13 @@
   }
 
   .card-text {
-    padding-top: 0;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .card-text::before {
+    font-size: 3rem;
+    top: 0.25rem;
+    left: 0.25rem;
   }
 
   .card-story {
