@@ -9,19 +9,6 @@
   justify-content: flex-start;
   padding: 30px;
   overflow: visible;
-  opacity: 0;
-  animation: smoothFadeIn 0.3s ease-out forwards;
-}
-
-@keyframes smoothFadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 /* Album Sleeve */

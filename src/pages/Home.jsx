@@ -220,12 +220,11 @@ function Home() {
           <div className="no-results">No records found</div>
         ) : (
           <div className="card-grid">
-            {filteredSubmissions.map((submission, index) => (
+            {filteredSubmissions.map((submission) => (
               <Card
                 key={submission.id}
                 submission={submission}
                 onClick={handleCardClick}
-                style={{ animationDelay: `${index * 0.08}s` }}
               />
             ))}
           </div>
