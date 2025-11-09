@@ -111,11 +111,10 @@
 }
 
 .header-title {
-  font-family: 'Arial Narrow', 'Arial', 'Helvetica Condensed', 'Impact', sans-serif;
-  font-size: 3.5rem;
-  font-weight: 900;
-  font-stretch: condensed;
-  letter-spacing: 0.02em;
+  font-family: 'Courier New', 'Courier', monospace;
+  font-size: 3.8rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
   color: #2c2c2c;
   margin: 0 0 1rem 0;
   text-transform: uppercase;
