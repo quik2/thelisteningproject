@@ -127,6 +127,9 @@ app.get('/api/track/:id', async (req, res) => {
 // Get all submissions
 app.get('/api/submissions', async (req, res) => {
   try {
+    // Add cache control headers for better performance
+    res.setHeader('Cache-Control', 'public, max-age=60'); // Cache for 1 minute
+
     const data = await fs.readFile(SUBMISSIONS_PATH, 'utf-8');
     const submissions = JSON.parse(data);
     res.json(submissions);
