@@ -104,16 +104,20 @@ function Submit() {
     <div className="submit-page">
       <Header onRandom={handleRandom} />
       <div className="submit-container">
-        <h1 className="submit-title">Share a Memory</h1>
+        <div className="submit-header">
+          <h1 className="submit-title">Share Your Memory</h1>
+          <p className="submit-subtitle">What song takes you back to a special moment?</p>
+        </div>
 
-        <div className="submit-form">
-          <div className="form-row">
-            <div className="search-section">
+        <div className="submit-content">
+          {!selectedTrack ? (
+            <div className="track-search-section">
+              <h2 className="section-label">Find your song or album</h2>
               <div className="search-input-wrapper">
                 <input
                   type="text"
                   className="submit-search-input"
-                  placeholder="Search for a song or album..."
+                  placeholder="Search Spotify..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -149,41 +153,44 @@ function Submit() {
                   </div>
                 )}
               </div>
-
-              {selectedTrack && (
-                <div className="selected-track-display">
-                  <img src={selectedTrack.albumCover} alt={selectedTrack.albumName} className="selected-album-art" />
-                  <div className="selected-track-info">
-                    <div className="selected-track-name">{selectedTrack.songName}</div>
-                    <div className="selected-track-artist">{selectedTrack.artistName}</div>
-                  </div>
-                  <button
-                    className="remove-track-btn"
-                    onClick={() => setSelectedTrack(null)}
-                    title="Remove selection"
-                  >
-                    ×
-                  </button>
-                </div>
-              )}
             </div>
+          ) : (
+            <div className="memory-form">
+              <div className="selected-track-card">
+                <img src={selectedTrack.albumCover} alt={selectedTrack.albumName} className="track-card-cover" />
+                <div className="track-card-info">
+                  <h3 className="track-card-name">{selectedTrack.songName}</h3>
+                  <p className="track-card-artist">{selectedTrack.artistName}</p>
+                </div>
+                <button
+                  className="track-change-btn"
+                  onClick={() => setSelectedTrack(null)}
+                >
+                  Change
+                </button>
+              </div>
 
-            <textarea
-              className="story-textarea"
-              placeholder="Write about your memory with this song or album..."
-              value={userText}
-              onChange={(e) => setUserText(e.target.value)}
-              rows="8"
-            />
-          </div>
+              <div className="story-section">
+                <label className="story-label">Your memory</label>
+                <textarea
+                  className="story-textarea"
+                  placeholder="Tell us about the moment, the feeling, or the memory this brings back..."
+                  value={userText}
+                  onChange={(e) => setUserText(e.target.value)}
+                  rows="10"
+                  autoFocus
+                />
+              </div>
 
-          <button
-            className="submit-btn"
-            onClick={handleSubmit}
-            disabled={!selectedTrack || !userText.trim() || submitting}
-          >
-            {submitting ? 'Submitting...' : 'Submit Memory'}
-          </button>
+              <button
+                className="submit-btn"
+                onClick={handleSubmit}
+                disabled={!userText.trim() || submitting}
+              >
+                {submitting ? 'Submitting...' : 'Submit to Archive'}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
