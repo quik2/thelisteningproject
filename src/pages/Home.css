@@ -2,6 +2,10 @@
   min-height: 100vh;
 }
 
+.home .header-section {
+  border-bottom: 1px solid #e8e0d5;
+}
+
 .home-content {
   padding: 0rem 3rem 4rem;
   max-width: 1400px;
