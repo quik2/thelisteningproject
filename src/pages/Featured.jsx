@@ -5,8 +5,9 @@ import Modal from '../components/Modal';
 import './Featured.css';
 
 function Featured() {
-  const [featuredSubmission, setFeaturedSubmission] = useState(null);
   const [selectedSubmission, setSelectedSubmission] = useState(null);
+  const [isRandomMode, setIsRandomMode] = useState(false);
+  const [featuredSubmission, setFeaturedSubmission] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,39 +33,47 @@ function Featured() {
     }
   };
 
-  const handleCardClick = (submission) => {
-    setSelectedSubmission(submission);
-  };
-
   const handleLikeUpdate = (submissionId, newLikes) => {
     if (featuredSubmission?.id === submissionId) {
-      setFeaturedSubmission(prev => prev ? { ...prev, likes: newLikes } : null);
-    }
-    if (selectedSubmission?.id === submissionId) {
-      setSelectedSubmission(prev => prev ? { ...prev, likes: newLikes } : null);
+      setFeaturedSubmission(prev => ({ ...prev, likes: newLikes }));
+      if (selectedSubmission?.id === submissionId) {
+        setSelectedSubmission(prev => ({ ...prev, likes: newLikes }));
+      }
     }
   };
 
   const handleRandom = () => {
-    // No random on featured page
+    if (featuredSubmission) {
+      setSelectedSubmission(featuredSubmission);
+      setIsRandomMode(true);
+    }
+  };
+
+  const handleNextRandom = () => {
+    if (featuredSubmission) {
+      setSelectedSubmission(featuredSubmission);
+      setIsRandomMode(true);
+    }
+  };
+
+  const handleCardClick = (submission) => {
+    setSelectedSubmission(submission);
+    setIsRandomMode(false);
   };
 
   return (
     <div className="featured-page">
       <Header onRandom={handleRandom} />
-
-      <div className="featured-content">
+      <div className="featured-container">
         <h2 className="featured-title">Record of the Week</h2>
         <p className="featured-description">
           The most beloved record from our community
         </p>
 
         {loading ? (
-          <div className="featured-card-wrapper">
-            {/* Show nothing while loading */}
-          </div>
+          <div className="featured-loading">Loading...</div>
         ) : featuredSubmission ? (
-          <div className="featured-card-wrapper">
+          <div className="featured-example">
             <Card
               submission={featuredSubmission}
               onClick={handleCardClick}
@@ -80,6 +89,7 @@ function Featured() {
           submission={selectedSubmission}
           onClose={() => setSelectedSubmission(null)}
           onLikeUpdate={handleLikeUpdate}
+          onNext={isRandomMode ? handleNextRandom : null}
         />
       )}
     </div>

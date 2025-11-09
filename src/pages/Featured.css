@@ -3,11 +3,10 @@
   background: #f5f1eb;
 }
 
-.featured-content {
+.featured-container {
   max-width: 800px;
   margin: 0 auto;
-  padding: 2rem 3rem 5rem;
-  text-align: center;
+  padding: 1rem 2rem 5rem;
 }
 
 .featured-title {
@@ -17,6 +16,7 @@
   color: #2c2c2c;
   margin: 0 0 1rem 0;
   letter-spacing: -0.01em;
+  text-align: center;
 }
 
 .featured-description {
@@ -25,24 +25,27 @@
   color: #8b7a6b;
   font-style: italic;
   margin: 0 0 3rem 0;
+  text-align: center;
 }
 
-.featured-card-wrapper {
-  max-width: 600px;
+.featured-example {
+  max-width: 700px;
   margin: 0 auto;
 }
 
+.featured-loading,
 .featured-empty {
   font-family: 'Lora', serif;
   font-size: 1.1rem;
   color: #8b7a6b;
   font-style: italic;
   padding: 4rem 2rem;
+  text-align: center;
 }
 
 @media (max-width: 650px) {
-  .featured-content {
-    padding: 2rem 1.5rem 3rem;
+  .featured-container {
+    padding: 1rem 1.5rem 3rem;
   }
 
   .featured-title {
