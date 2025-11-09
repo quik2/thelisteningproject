@@ -108,6 +108,7 @@
   padding-right: 0.5rem;
   scrollbar-width: thin;
   scrollbar-color: #d4c5b9 transparent;
+  flex-wrap: wrap;
 }
 
 /* Custom scrollbar for modal content */
@@ -141,6 +142,18 @@
     0 8px 16px rgba(0, 0, 0, 0.15),
     0 16px 32px rgba(0, 0, 0, 0.2),
     inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* When text wraps below album, ensure it takes full width */
+@media (max-width: 900px) {
+  .modal-album {
+    position: relative;
+    margin: 0 auto;
+  }
+
+  .modal-text {
+    flex: 1 1 100%;
+  }
 }
 
 .modal-album::after {

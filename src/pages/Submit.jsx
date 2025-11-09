@@ -185,7 +185,9 @@ function Submit() {
                 isEditable={true}
                 onTextChange={setUserText}
               />
+            </div>
 
+            <div className="submit-buttons-container">
               <button
                 className="change-track-btn"
                 onClick={() => {
