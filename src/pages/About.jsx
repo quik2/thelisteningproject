@@ -48,13 +48,7 @@ function About() {
       <Header onRandom={handleRandom} />
       <div className="about-container">
         <p className="about-text">
-          The Listening Project is a collective archive of songs and the memories they hold.
-          It's a place where people share short reflections tied to specific tracks — moments,
-          feelings, or memories that make those songs meaningful. This isn't about ranking, taste,
-          or algorithms. It's about connection. By reading why a song matters to someone else,
-          you start to see how music threads through all of our lives differently. Every post
-          adds a small piece to a bigger truth: music doesn't just play in the background of
-          our lives — it shapes who we are, what we feel, and how we remember.
+          The Record Room is a collection of memories told through music. Each record holds a story—a song that marked a moment, an album that held someone together, a lyric that said what words couldn't. Together, these memories remind us that while our experiences are personal, the feelings they carry are shared. Add your record. Share your story.
         </p>
         <div className="about-example">
           <Card
