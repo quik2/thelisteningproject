@@ -170,11 +170,8 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  padding: 1.5rem 1.75rem;
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
   min-width: 0;
-  background: linear-gradient(135deg, rgba(245, 241, 235, 0.4) 0%, rgba(255, 255, 255, 0.2) 100%);
-  border-left: 3px solid #d4c5b9;
-  position: relative;
 }
 
 .card-story {
@@ -188,12 +185,6 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.card-story::first-letter {
-  font-size: 1.4em;
-  font-weight: 600;
-  color: #8b7a6b;
 }
 
 .card-author {
@@ -234,7 +225,7 @@
   }
 
   .card-text {
-    padding: 1.25rem 1.5rem;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
   }
 
   .card-story {
