@@ -5,7 +5,6 @@ function Header({ children, onRandom }) {
   const location = useLocation();
 
   const isHome = location.pathname === '/';
-  const isFeatured = location.pathname === '/featured';
   const isAbout = location.pathname === '/about';
   const isSubmit = location.pathname === '/submit';
 
@@ -19,7 +18,6 @@ function Header({ children, onRandom }) {
           <div className="header-nav-links">
             <Link to="/" className={`header-nav-link ${isHome ? 'active' : ''}`}>RECORDS</Link>
             <Link to="/about" className={`header-nav-link ${isAbout ? 'active' : ''}`}>ABOUT</Link>
-            <Link to="/featured" className={`header-nav-link ${isFeatured ? 'active' : ''}`}>FEATURED</Link>
           </div>
           <Link to="/submit" className="header-submit-button">ADD</Link>
         </div>
