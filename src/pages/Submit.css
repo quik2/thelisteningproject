@@ -31,13 +31,17 @@
   flex-direction: column;
   gap: 2rem;
   padding: 1rem 0 0 0;
+}
+
+.preview-modal-container {
+  width: 100%;
   position: relative;
 }
 
 .change-track-btn {
   position: absolute;
-  bottom: 1rem;
-  left: 0;
+  bottom: 3rem;
+  left: 3rem;
   background: transparent;
   border: 1px solid #d4c5b9;
   font-family: 'Lora', serif;
@@ -47,17 +51,13 @@
   transition: all 0.2s ease;
   padding: 0.5rem 1rem;
   border-radius: 2px;
+  z-index: 5;
 }
 
 .change-track-btn:hover {
   color: #2c2c2c;
   border-color: #8b7a6b;
   background: #f5f0eb;
-}
-
-.preview-modal-container {
-  width: 100%;
-  padding-bottom: 4rem;
 }
 
 .section-label {
@@ -328,7 +328,9 @@
 }
 
 .submit-btn {
-  align-self: center;
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
   padding: 1rem 3rem;
   font-family: 'Lora', serif;
   font-size: 1rem;
@@ -341,6 +343,7 @@
   transition: all 0.3s ease;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  z-index: 5;
 }
 
 .submit-btn:hover:not(:disabled) {

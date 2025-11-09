@@ -195,15 +195,15 @@ function Submit() {
               >
                 Change song
               </button>
-            </div>
 
-            <button
-              className="submit-btn"
-              onClick={handleSubmit}
-              disabled={!userText.trim() || submitting}
-            >
-              {submitting ? 'Submitting...' : 'Submit to archive'}
-            </button>
+              <button
+                className="submit-btn"
+                onClick={handleSubmit}
+                disabled={!userText.trim() || submitting}
+              >
+                {submitting ? 'Submitting...' : 'Submit to archive'}
+              </button>
+            </div>
           </div>
         )}
       </div>
