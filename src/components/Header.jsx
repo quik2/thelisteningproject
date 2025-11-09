@@ -20,7 +20,7 @@ function Header({ children, onRandom }) {
           <button onClick={onRandom} className="header-nav-link header-nav-button">RANDOM</button>
           <Link to="/submit" className={`header-nav-link ${isSubmit ? 'active' : ''}`}>SUBMIT</Link>
         </div>
-        <h1 className="header-title">THE LISTENING PROJECT</h1>
+        <h1 className="header-title">THE RECORD ROOM</h1>
         {children}
       </div>
     </>

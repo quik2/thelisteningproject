@@ -188,7 +188,7 @@ function Home() {
       <Header onRandom={handleRandom}>
         {!loading && filteredSubmissions.length > 0 && (
           <div className="results-count">
-            {filteredSubmissions.length} {filteredSubmissions.length === 1 ? 'memory' : 'memories'} found
+            {filteredSubmissions.length} {filteredSubmissions.length === 1 ? 'record' : 'records'} found
           </div>
         )}
         <div className="search-sort-container">
@@ -212,8 +212,10 @@ function Home() {
       </Header>
 
       <div className="home-content">
-        {filteredSubmissions.length === 0 && !loading ? (
-          <div className="no-results">No submissions found</div>
+        {loading ? (
+          <div className="loading">Loading records...</div>
+        ) : filteredSubmissions.length === 0 ? (
+          <div className="no-results">No records found</div>
         ) : (
           <div className="card-grid">
             {filteredSubmissions.map((submission) => (

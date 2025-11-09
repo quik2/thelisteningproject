@@ -4,7 +4,12 @@ function Card({ submission, onClick }) {
   return (
     <div className="card-container" onClick={() => onClick(submission)}>
       <div className="vinyl-sleeve">
-        <img src={submission.albumCover} alt={submission.albumName} />
+        <img
+          src={submission.albumCover}
+          alt={submission.albumName}
+          loading="lazy"
+          decoding="async"
+        />
       </div>
       <div className="vinyl-record">
         <div className="record-center">
