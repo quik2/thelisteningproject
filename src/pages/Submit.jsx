@@ -121,10 +121,14 @@ function Submit() {
       <div className="submit-container">
         {!selectedTrack ? (
           <div className="submit-search-section">
-            <div className="vinyl-background-animation">
-              <div className="floating-vinyl vinyl-1"></div>
-              <div className="floating-vinyl vinyl-2"></div>
-              <div className="floating-vinyl vinyl-3"></div>
+            <div className="vintage-record-player">
+              <div className="record-player-body">
+                <div className="turntable">
+                  <div className="vinyl-record"></div>
+                  <div className="spindle"></div>
+                </div>
+                <div className="tonearm"></div>
+              </div>
             </div>
             <div className="search-input-wrapper">
               <input
