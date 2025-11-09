@@ -10,7 +10,6 @@ function Home() {
   const [submissions, setSubmissions] = useState([]);
   const [filteredSubmissions, setFilteredSubmissions] = useState([]);
   const [selectedSubmission, setSelectedSubmission] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState('most-recent');
   const [isRandomMode, setIsRandomMode] = useState(false);
   const [activeFilter, setActiveFilter] = useState(null);
@@ -44,8 +43,6 @@ function Home() {
       sortSubmissions(data);
     } catch (error) {
       console.error('Error fetching submissions:', error);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -186,7 +183,7 @@ function Home() {
   return (
     <div className="home">
       <Header onRandom={handleRandom}>
-        {!loading && filteredSubmissions.length > 0 && (
+        {filteredSubmissions.length > 0 && (
           <div className="results-count">
             {filteredSubmissions.length} {filteredSubmissions.length === 1 ? 'record' : 'records'} found
           </div>
@@ -212,9 +209,7 @@ function Home() {
       </Header>
 
       <div className="home-content">
-        {loading ? (
-          <div className="loading">Loading records...</div>
-        ) : filteredSubmissions.length === 0 ? (
+        {filteredSubmissions.length === 0 ? (
           <div className="no-results">No records found</div>
         ) : (
           <div className="card-grid">
