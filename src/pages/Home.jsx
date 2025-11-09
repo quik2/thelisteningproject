@@ -183,11 +183,6 @@ function Home() {
   return (
     <div className="home">
       <Header onRandom={handleRandom}>
-        {filteredSubmissions.length > 0 && (
-          <div className="results-count">
-            {filteredSubmissions.length} {filteredSubmissions.length === 1 ? 'record' : 'records'} found
-          </div>
-        )}
         <div className="search-sort-container">
           <SearchBar
             onSearch={handleSearch}
@@ -206,6 +201,11 @@ function Home() {
             <option value="most-liked">Most Liked</option>
           </select>
         </div>
+        {filteredSubmissions.length > 0 && (
+          <div className="results-count">
+            {filteredSubmissions.length} {filteredSubmissions.length === 1 ? 'record' : 'records'} found
+          </div>
+        )}
       </Header>
 
       <div className="home-content">

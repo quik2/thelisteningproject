@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Modal.css';
 
-function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious }) {
+function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious, isPreview = false }) {
   const [likes, setLikes] = useState(submission.likes || 0);
   const [hasLiked, setHasLiked] = useState(false);
   const [isLiking, setIsLiking] = useState(false);
@@ -18,22 +18,26 @@ function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious }) {
   }, [submission.id]);
 
   useEffect(() => {
-    // Prevent body scroll when modal is open
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, []);
+    // Prevent body scroll when modal is open (but not in preview mode)
+    if (!isPreview) {
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = 'unset';
+      };
+    }
+  }, [isPreview]);
 
   useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
-    };
-    window.addEventListener('keydown', handleEscape);
-    return () => window.removeEventListener('keydown', handleEscape);
-  }, [onClose]);
+    if (!isPreview) {
+      const handleEscape = (e) => {
+        if (e.key === 'Escape') {
+          onClose();
+        }
+      };
+      window.addEventListener('keydown', handleEscape);
+      return () => window.removeEventListener('keydown', handleEscape);
+    }
+  }, [onClose, isPreview]);
 
   const handleLike = async () => {
     // Prevent multiple simultaneous requests
@@ -141,6 +145,40 @@ function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious }) {
     }
   };
 
+  const content = (
+    <>
+      {!isPreview && <button className="modal-close" onClick={onClose}>×</button>}
+      <div className="modal-layout">
+        <div className="modal-album">
+          <img src={submission.albumCover} alt={submission.albumName} />
+        </div>
+        <div className="modal-text">
+          <div className="modal-header">
+            <h2 className="modal-song">{submission.songName}</h2>
+            <p className="modal-artist">{submission.artistName}</p>
+            <div className="modal-like-section">
+              <button
+                className={`like-button ${hasLiked ? 'liked' : ''} ${isLiking ? 'liking' : ''}`}
+                onClick={handleLike}
+                disabled={isLiking}
+              >
+                <span className="like-icon">{hasLiked ? '♥' : '♡'}</span>
+                <span className="like-count">{likes}</span>
+              </button>
+            </div>
+          </div>
+          <div className="modal-story">
+            <p>{submission.userText}</p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+
+  if (isPreview) {
+    return <div className="modal-content modal-preview">{content}</div>;
+  }
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-overlay-inner">
@@ -148,43 +186,8 @@ function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious }) {
           className="modal-content"
           onClick={(e) => e.stopPropagation()}
         >
-          <button className="modal-close" onClick={onClose}>×</button>
-          <div className="modal-layout">
-            <div className="modal-album">
-              <img src={submission.albumCover} alt={submission.albumName} />
-            </div>
-            <div className="modal-text">
-              <div className="modal-header">
-                <h2 className="modal-song">{submission.songName}</h2>
-                <p className="modal-artist">{submission.artistName}</p>
-                <div className="modal-like-section">
-                  <button
-                    className={`like-button ${hasLiked ? 'liked' : ''} ${isLiking ? 'liking' : ''}`}
-                    onClick={handleLike}
-                    disabled={isLiking}
-                  >
-                    <span className="like-icon">{hasLiked ? '♥' : '♡'}</span>
-                    <span className="like-count">{likes}</span>
-                  </button>
-                </div>
-              </div>
-              <div className="modal-story">
-                <p>{submission.userText}</p>
-              </div>
-            </div>
-          </div>
+          {content}
         </div>
-        {onNext && (
-          <button
-            className="modal-next-below"
-            onClick={(e) => {
-              e.stopPropagation();
-              onNext();
-            }}
-          >
-            NEXT
-          </button>
-        )}
       </div>
     </div>
   );

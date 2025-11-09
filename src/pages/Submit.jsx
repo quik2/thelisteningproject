@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import Modal from '../components/Modal';
+import Card from '../components/Card';
 import './Submit.css';
 
 function Submit() {
@@ -100,95 +102,127 @@ function Submit() {
     // No random functionality on submit page
   };
 
+  // Create preview submission object
+  const previewSubmission = selectedTrack && userText.trim() ? {
+    id: 'preview',
+    songName: selectedTrack.songName,
+    artistName: selectedTrack.artistName,
+    albumName: selectedTrack.albumName,
+    albumCover: selectedTrack.albumCover,
+    previewUrl: selectedTrack.previewUrl,
+    userText: userText,
+    submittedBy: 'Anonymous',
+    timestamp: new Date().toISOString(),
+    likes: 0
+  } : null;
+
   return (
     <div className="submit-page">
       <Header onRandom={handleRandom} />
       <div className="submit-container">
         <div className="submit-header">
-          <h1 className="submit-title">Share Your Memory</h1>
-          <p className="submit-subtitle">What song takes you back to a special moment?</p>
+          <h1 className="submit-title">Add to the archive</h1>
         </div>
 
-        <div className="submit-content">
-          {!selectedTrack ? (
-            <div className="track-search-section">
-              <h2 className="section-label">Find your song or album</h2>
-              <div className="search-input-wrapper">
-                <input
-                  type="text"
-                  className="submit-search-input"
-                  placeholder="Search Spotify..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                {searching && <span className="searching-indicator">searching...</span>}
+        <div className="submit-layout">
+          <div className="submit-form-section">
+            <h2 className="section-label">Find your song or album</h2>
+            <div className="search-input-wrapper">
+              <input
+                type="text"
+                className="submit-search-input"
+                placeholder="Search Spotify..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
 
-                {searchResults.length > 0 && (
-                  <div className="search-results">
-                    {searchResults.map((item) => (
-                      <div
-                        key={item.id}
-                        className="result-item"
-                        onClick={() => handleSelectTrack(item)}
-                      >
-                        <img
-                          src={item.type === 'album'
-                            ? (item.images[2]?.url || item.images[0]?.url)
-                            : (item.album.images[2]?.url || item.album.images[0]?.url)
-                          }
-                          alt={item.type === 'album' ? item.name : item.album.name}
-                          className="result-image"
-                        />
-                        <div className="result-info">
-                          <div className="result-name">{item.name}</div>
-                          <div className="result-artist">
-                            {item.artists.map(a => a.name).join(', ')}
-                          </div>
+              {searchResults.length > 0 && (
+                <div className="search-results">
+                  {searchResults.map((item) => (
+                    <div
+                      key={item.id}
+                      className="result-item"
+                      onClick={() => handleSelectTrack(item)}
+                    >
+                      <img
+                        src={item.type === 'album'
+                          ? (item.images[2]?.url || item.images[0]?.url)
+                          : (item.album.images[2]?.url || item.album.images[0]?.url)
+                        }
+                        alt={item.type === 'album' ? item.name : item.album.name}
+                        className="result-image"
+                      />
+                      <div className="result-info">
+                        <div className="result-name">{item.name}</div>
+                        <div className="result-artist">
+                          {item.artists.map(a => a.name).join(', ')}
                         </div>
-                        {item.type === 'album' && (
-                          <span className="result-type-badge">album</span>
-                        )}
                       </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          ) : (
-            <div className="memory-form">
-              <div className="selected-track-card">
-                <img src={selectedTrack.albumCover} alt={selectedTrack.albumName} className="track-card-cover" />
-                <div className="track-card-info">
-                  <h3 className="track-card-name">{selectedTrack.songName}</h3>
-                  <p className="track-card-artist">{selectedTrack.artistName}</p>
+                      {item.type === 'album' && (
+                        <span className="result-type-badge">album</span>
+                      )}
+                    </div>
+                  ))}
                 </div>
-                <button
-                  className="track-change-btn"
-                  onClick={() => setSelectedTrack(null)}
-                >
-                  Change
-                </button>
-              </div>
+              )}
+            </div>
 
-              <div className="story-section">
-                <label className="story-label">Your memory</label>
-                <textarea
-                  className="story-textarea"
-                  placeholder="Tell us about the moment, the feeling, or the memory this brings back..."
-                  value={userText}
-                  onChange={(e) => setUserText(e.target.value)}
-                  rows="10"
-                  autoFocus
+            {selectedTrack && (
+              <>
+                <div className="selected-track-banner">
+                  <img src={selectedTrack.albumCover} alt={selectedTrack.albumName} className="banner-cover" />
+                  <div className="banner-info">
+                    <div className="banner-name">{selectedTrack.songName}</div>
+                    <div className="banner-artist">{selectedTrack.artistName}</div>
+                  </div>
+                  <button
+                    className="banner-change-btn"
+                    onClick={() => setSelectedTrack(null)}
+                  >
+                    Change
+                  </button>
+                </div>
+
+                <div className="story-section">
+                  <label className="section-label">Your memory</label>
+                  <textarea
+                    className="story-textarea"
+                    placeholder="Write about the moment, the feeling, or the memory this brings back..."
+                    value={userText}
+                    onChange={(e) => setUserText(e.target.value)}
+                    rows="8"
+                    autoFocus
+                  />
+                </div>
+
+                <button
+                  className="submit-btn"
+                  onClick={handleSubmit}
+                  disabled={!userText.trim() || submitting}
+                >
+                  {submitting ? 'Submitting...' : 'Submit to archive'}
+                </button>
+              </>
+            )}
+          </div>
+
+          {previewSubmission && (
+            <div className="preview-section">
+              <h3 className="preview-title">Preview</h3>
+              <div className="preview-modal">
+                <Modal
+                  submission={previewSubmission}
+                  onClose={() => {}}
+                  onLikeUpdate={() => {}}
+                  isPreview={true}
                 />
               </div>
-
-              <button
-                className="submit-btn"
-                onClick={handleSubmit}
-                disabled={!userText.trim() || submitting}
-              >
-                {submitting ? 'Submitting...' : 'Submit to Archive'}
-              </button>
+              <div className="preview-card">
+                <Card
+                  submission={previewSubmission}
+                  onClick={() => {}}
+                />
+              </div>
             </div>
           )}
         </div>

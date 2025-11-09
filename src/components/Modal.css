@@ -46,6 +46,19 @@
   border: none;
   animation: slideUp 0.4s ease;
   margin: auto;
+  max-height: calc(100vh - 8rem);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-preview {
+  animation: none;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+  padding: 3rem;
+  max-width: 100%;
 }
 
 @keyframes slideUp {
@@ -85,39 +98,44 @@
   transform: rotate(90deg);
 }
 
-.modal-next-below {
-  position: absolute;
-  bottom: -5rem;
-  right: 0;
-  font-family: 'Lora', serif;
-  font-size: 0.9rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  background: #2c2c2c;
-  color: #F5EFE6;
-  border: 2px solid #2c2c2c;
-  padding: 0.75rem 2rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 4px;
-}
-
-.modal-next-below:hover {
-  background: #F5EFE6;
-  color: #2c2c2c;
-}
-
 .modal-layout {
   display: flex;
   gap: 3rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+  min-height: 0;
+  padding-right: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: #d4c5b9 transparent;
+}
+
+/* Custom scrollbar for modal content */
+.modal-layout::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-layout::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-layout::-webkit-scrollbar-thumb {
+  background: #d4c5b9;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.modal-layout::-webkit-scrollbar-thumb:hover {
+  background: #c4b5a8;
 }
 
 .modal-album {
   flex-shrink: 0;
   width: 320px;
   height: 320px;
-  position: relative;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.1),
     0 8px 16px rgba(0, 0, 0, 0.15),
@@ -152,6 +170,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .modal-header {
@@ -225,10 +244,14 @@
   font-size: 1.15rem;
   line-height: 1.9;
   color: #2c2c2c;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .modal-story p {
   margin: 0;
+  white-space: pre-wrap;
 }
 
 .like-button {
@@ -292,13 +315,18 @@
 
 @media (max-width: 768px) {
   .modal-overlay {
-    padding: 1rem;
+    padding: 0.5rem;
+    align-items: flex-start;
   }
 
   .modal-content {
-    padding: 2.5rem 2rem;
-    max-height: 90vh;
-    overflow-y: auto;
+    padding: 2rem 1.5rem;
+    max-height: calc(100vh - 2rem);
+    margin: 0.5rem auto;
+  }
+
+  .modal-preview {
+    padding: 2rem 1.5rem;
   }
 
   .modal-close {
@@ -313,12 +341,19 @@
   .modal-layout {
     flex-direction: column;
     gap: 2rem;
+    padding-right: 0;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .modal-layout::-webkit-scrollbar {
+    width: 4px;
   }
 
   .modal-album {
     width: 100%;
     height: auto;
     aspect-ratio: 1;
+    position: static;
   }
 
   .modal-song {
@@ -330,13 +365,7 @@
   }
 
   .modal-story {
-    font-size: 1rem;
-    padding: 0 0.5rem;
-  }
-
-  .modal-next-below {
-    bottom: -4rem;
-    font-size: 0.85rem;
-    padding: 0.65rem 1.75rem;
+    font-size: 1.05rem;
+    padding: 0;
   }
 }

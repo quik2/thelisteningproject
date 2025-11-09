@@ -45,12 +45,41 @@
   border-bottom: 1px solid #e8e0d5;
 }
 
+.header-nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto 2rem;
+  padding: 0 2rem;
+}
+
 .header-nav-links {
   display: flex;
   gap: 2.5rem;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 2rem;
+}
+
+.header-submit-button {
+  font-family: 'Lora', serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #2c2c2c;
+  background: #f5f1eb;
+  border: 2px solid #2c2c2c;
+  padding: 0.75rem 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.header-submit-button:hover {
+  background: #2c2c2c;
+  color: #f5f1eb;
 }
 
 .header-nav-link {

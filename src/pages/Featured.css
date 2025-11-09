@@ -1,0 +1,55 @@
+.featured-page {
+  min-height: 100vh;
+}
+
+.featured-container {
+  padding: 2rem 3rem 4rem;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.featured-title {
+  font-family: 'Lora', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c2c2c;
+  margin: 0 0 1rem 0;
+  letter-spacing: 0.02em;
+}
+
+.featured-description {
+  font-family: 'Lora', serif;
+  font-size: 1.1rem;
+  color: #8b7a6b;
+  font-style: italic;
+  margin: 0 0 3rem 0;
+}
+
+.featured-card-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.featured-loading,
+.featured-empty {
+  font-family: 'Lora', serif;
+  font-size: 1.1rem;
+  color: #8b7a6b;
+  font-style: italic;
+  padding: 4rem 2rem;
+}
+
+@media (max-width: 650px) {
+  .featured-container {
+    padding: 1.5rem 1.5rem 3rem;
+  }
+
+  .featured-title {
+    font-size: 2rem;
+  }
+
+  .featured-description {
+    font-size: 1rem;
+  }
+}
