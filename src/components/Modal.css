@@ -276,11 +276,26 @@
   font-size: 1.15rem;
   line-height: 1.9;
   color: #2c2c2c;
-  background: transparent;
-  border: none;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
   resize: none;
-  outline: none;
+  outline: none !important;
   overflow: hidden;
+}
+
+.modal-story-textarea:focus {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.modal-story-textarea:active {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .modal-story-textarea::placeholder {
