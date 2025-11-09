@@ -31,6 +31,9 @@
 
 .search-section {
   flex: 1;
+}
+
+.search-input-wrapper {
   position: relative;
 }
 

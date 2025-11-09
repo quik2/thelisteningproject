@@ -109,44 +109,46 @@ function Submit() {
         <div className="submit-form">
           <div className="form-row">
             <div className="search-section">
-              <input
-                type="text"
-                className="submit-search-input"
-                placeholder="Search for a song or album..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              {searching && <span className="searching-indicator">searching...</span>}
+              <div className="search-input-wrapper">
+                <input
+                  type="text"
+                  className="submit-search-input"
+                  placeholder="Search for a song or album..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                {searching && <span className="searching-indicator">searching...</span>}
 
-              {searchResults.length > 0 && (
-                <div className="search-results">
-                  {searchResults.map((item) => (
-                    <div
-                      key={item.id}
-                      className="result-item"
-                      onClick={() => handleSelectTrack(item)}
-                    >
-                      <img
-                        src={item.type === 'album'
-                          ? (item.images[2]?.url || item.images[0]?.url)
-                          : (item.album.images[2]?.url || item.album.images[0]?.url)
-                        }
-                        alt={item.type === 'album' ? item.name : item.album.name}
-                        className="result-image"
-                      />
-                      <div className="result-info">
-                        <div className="result-name">{item.name}</div>
-                        <div className="result-artist">
-                          {item.artists.map(a => a.name).join(', ')}
+                {searchResults.length > 0 && (
+                  <div className="search-results">
+                    {searchResults.map((item) => (
+                      <div
+                        key={item.id}
+                        className="result-item"
+                        onClick={() => handleSelectTrack(item)}
+                      >
+                        <img
+                          src={item.type === 'album'
+                            ? (item.images[2]?.url || item.images[0]?.url)
+                            : (item.album.images[2]?.url || item.album.images[0]?.url)
+                          }
+                          alt={item.type === 'album' ? item.name : item.album.name}
+                          className="result-image"
+                        />
+                        <div className="result-info">
+                          <div className="result-name">{item.name}</div>
+                          <div className="result-artist">
+                            {item.artists.map(a => a.name).join(', ')}
+                          </div>
                         </div>
+                        {item.type === 'album' && (
+                          <span className="result-type-badge">album</span>
+                        )}
                       </div>
-                      {item.type === 'album' && (
-                        <span className="result-type-badge">album</span>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
+                    ))}
+                  </div>
+                )}
+              </div>
 
               {selectedTrack && (
                 <div className="selected-track-display">
