@@ -165,16 +165,6 @@ function Submit() {
           </div>
         ) : (
           <div className="submit-preview-section">
-            <button
-              className="change-track-btn"
-              onClick={() => {
-                setSelectedTrack(null);
-                setUserText('');
-              }}
-            >
-              ← Change song
-            </button>
-
             <div className="preview-modal-container">
               <Modal
                 submission={{
@@ -195,6 +185,16 @@ function Submit() {
                 isEditable={true}
                 onTextChange={setUserText}
               />
+
+              <button
+                className="change-track-btn"
+                onClick={() => {
+                  setSelectedTrack(null);
+                  setUserText('');
+                }}
+              >
+                Change song
+              </button>
             </div>
 
             <button
