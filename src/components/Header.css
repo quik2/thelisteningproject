@@ -46,12 +46,11 @@
 }
 
 .header-nav-container {
+  position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  max-width: 1400px;
   margin: 0 auto 2rem;
-  padding: 0 2rem;
 }
 
 .header-nav-links {
@@ -61,6 +60,8 @@
 }
 
 .header-submit-button {
+  position: absolute;
+  right: 2rem;
   font-family: 'Lora', serif;
   font-size: 0.9rem;
   font-weight: 400;

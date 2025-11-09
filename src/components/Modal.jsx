@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Modal.css';
 
-function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious, isPreview = false }) {
+function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious, isPreview = false, isEditable = false, onTextChange }) {
   const [likes, setLikes] = useState(submission.likes || 0);
   const [hasLiked, setHasLiked] = useState(false);
   const [isLiking, setIsLiking] = useState(false);
@@ -168,7 +168,17 @@ function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious, isPrevie
             </div>
           </div>
           <div className="modal-story">
-            <p>{submission.userText}</p>
+            {isEditable ? (
+              <textarea
+                className="modal-story-textarea"
+                placeholder="Type your memory here..."
+                value={submission.userText}
+                onChange={(e) => onTextChange && onTextChange(e.target.value)}
+                autoFocus
+              />
+            ) : (
+              <p>{submission.userText}</p>
+            )}
           </div>
         </div>
       </div>

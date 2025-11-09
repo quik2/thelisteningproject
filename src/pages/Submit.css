@@ -3,35 +3,59 @@
 }
 
 .submit-container {
-  max-width: 1400px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 0 3rem 5rem;
+  padding: 3rem 2rem 5rem;
 }
 
-.submit-header {
-  text-align: center;
-  margin: 2.5rem 0 3rem;
+/* Search section - shown when no track selected */
+.submit-search-section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 4rem 0;
 }
 
-.submit-title {
+.submit-search-title {
   font-family: 'Lora', serif;
-  font-size: 2.25rem;
+  font-size: 2.5rem;
   font-weight: 400;
   color: #2c2c2c;
-  margin: 0;
-  letter-spacing: -0.01em;
+  margin: 0 0 2rem 0;
+  text-align: center;
+  letter-spacing: -0.02em;
 }
 
-.submit-layout {
-  display: grid;
-  grid-template-columns: 500px 1fr;
-  gap: 4rem;
-  align-items: start;
+/* Preview section - shown after track selection */
+.submit-preview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 2rem 0;
 }
 
-.submit-form-section {
-  position: sticky;
-  top: 2rem;
+.change-track-btn {
+  align-self: flex-start;
+  background: transparent;
+  border: none;
+  font-family: 'Lora', serif;
+  font-size: 0.95rem;
+  color: #8b7a6b;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  padding: 0.5rem 0;
+}
+
+.change-track-btn:hover {
+  color: #2c2c2c;
+}
+
+.preview-modal-container {
+  width: 100%;
+}
+
+.preview-card-container {
+  width: 280px;
+  margin: 0 auto;
 }
 
 .section-label {
@@ -302,19 +326,19 @@
 }
 
 .submit-btn {
-  width: 100%;
-  padding: 1.125rem 2rem;
+  align-self: center;
+  padding: 1rem 3rem;
   font-family: 'Lora', serif;
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 500;
   background: #2c2c2c;
   color: #ffffff;
   border: none;
-  border-radius: 2px;
+  border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
-  display: block;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .submit-btn:hover:not(:disabled) {
@@ -335,87 +359,25 @@
   opacity: 0.6;
 }
 
-/* Preview section */
-.preview-section {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-}
-
-.preview-title {
-  font-family: 'Lora', serif;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: #6b5d52;
-  text-transform: lowercase;
-  letter-spacing: 0.05em;
-  margin: 0 0 1rem 0;
-}
-
-.preview-modal {
-  width: 100%;
-}
-
-.preview-card {
-  width: 280px;
-  margin: 0 auto;
-}
-
-@media (max-width: 1024px) {
-  .submit-layout {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-
-  .submit-form-section {
-    position: static;
-  }
-
-  .preview-section {
-    order: 2;
-  }
-}
-
 @media (max-width: 768px) {
   .submit-container {
-    padding: 0 1.5rem 4rem;
+    padding: 2rem 1.5rem 4rem;
   }
 
-  .submit-header {
-    margin: 2rem 0 2.5rem;
+  .submit-search-section {
+    padding: 2rem 0;
   }
 
-  .submit-title {
+  .submit-search-title {
     font-size: 2rem;
   }
 
-  .submit-layout {
+  .submit-preview-section {
     gap: 2rem;
+    padding: 1rem 0;
   }
 
-  .selected-track-banner {
-    margin: 1rem 0;
-  }
-
-  .banner-cover {
-    width: 50px;
-    height: 50px;
-  }
-
-  .banner-name {
-    font-size: 0.95rem;
-  }
-
-  .banner-artist {
-    font-size: 0.85rem;
-  }
-
-  .story-textarea {
-    font-size: 1rem;
-    min-height: 180px;
-  }
-
-  .preview-card {
+  .preview-card-container {
     width: 100%;
     max-width: 280px;
   }

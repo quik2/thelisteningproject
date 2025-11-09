@@ -120,13 +120,9 @@ function Submit() {
     <div className="submit-page">
       <Header onRandom={handleRandom} />
       <div className="submit-container">
-        <div className="submit-header">
-          <h1 className="submit-title">Add to the archive</h1>
-        </div>
-
-        <div className="submit-layout">
-          <div className="submit-form-section">
-            <h2 className="section-label">Find your song or album</h2>
+        {!selectedTrack ? (
+          <div className="submit-search-section">
+            <h1 className="submit-search-title">Find your song or album</h1>
             <div className="search-input-wrapper">
               <input
                 type="text"
@@ -134,6 +130,7 @@ function Submit() {
                 placeholder="Search Spotify..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                autoFocus
               />
 
               {searchResults.length > 0 && (
@@ -166,66 +163,68 @@ function Submit() {
                 </div>
               )}
             </div>
-
-            {selectedTrack && (
-              <>
-                <div className="selected-track-banner">
-                  <img src={selectedTrack.albumCover} alt={selectedTrack.albumName} className="banner-cover" />
-                  <div className="banner-info">
-                    <div className="banner-name">{selectedTrack.songName}</div>
-                    <div className="banner-artist">{selectedTrack.artistName}</div>
-                  </div>
-                  <button
-                    className="banner-change-btn"
-                    onClick={() => setSelectedTrack(null)}
-                  >
-                    Change
-                  </button>
-                </div>
-
-                <div className="story-section">
-                  <label className="section-label">Your memory</label>
-                  <textarea
-                    className="story-textarea"
-                    placeholder="Write about the moment, the feeling, or the memory this brings back..."
-                    value={userText}
-                    onChange={(e) => setUserText(e.target.value)}
-                    rows="8"
-                    autoFocus
-                  />
-                </div>
-
-                <button
-                  className="submit-btn"
-                  onClick={handleSubmit}
-                  disabled={!userText.trim() || submitting}
-                >
-                  {submitting ? 'Submitting...' : 'Submit to archive'}
-                </button>
-              </>
-            )}
           </div>
+        ) : (
+          <div className="submit-preview-section">
+            <button
+              className="change-track-btn"
+              onClick={() => {
+                setSelectedTrack(null);
+                setUserText('');
+              }}
+            >
+              ← Change song
+            </button>
 
-          {previewSubmission && (
-            <div className="preview-section">
-              <h3 className="preview-title">Preview</h3>
-              <div className="preview-modal">
-                <Modal
-                  submission={previewSubmission}
-                  onClose={() => {}}
-                  onLikeUpdate={() => {}}
-                  isPreview={true}
-                />
-              </div>
-              <div className="preview-card">
-                <Card
-                  submission={previewSubmission}
-                  onClick={() => {}}
-                />
-              </div>
+            <div className="preview-modal-container">
+              <Modal
+                submission={{
+                  id: 'preview',
+                  songName: selectedTrack.songName,
+                  artistName: selectedTrack.artistName,
+                  albumName: selectedTrack.albumName,
+                  albumCover: selectedTrack.albumCover,
+                  previewUrl: selectedTrack.previewUrl,
+                  userText: userText || '',
+                  submittedBy: 'Anonymous',
+                  timestamp: new Date().toISOString(),
+                  likes: 0
+                }}
+                onClose={() => {}}
+                onLikeUpdate={() => {}}
+                isPreview={true}
+                isEditable={true}
+                onTextChange={setUserText}
+              />
             </div>
-          )}
-        </div>
+
+            <div className="preview-card-container">
+              <Card
+                submission={{
+                  id: 'preview',
+                  songName: selectedTrack.songName,
+                  artistName: selectedTrack.artistName,
+                  albumName: selectedTrack.albumName,
+                  albumCover: selectedTrack.albumCover,
+                  previewUrl: selectedTrack.previewUrl,
+                  userText: userText || '',
+                  submittedBy: 'Anonymous',
+                  timestamp: new Date().toISOString(),
+                  likes: 0
+                }}
+                onClick={() => {}}
+              />
+            </div>
+
+            <button
+              className="submit-btn"
+              onClick={handleSubmit}
+              disabled={!userText.trim() || submitting}
+            >
+              {submitting ? 'Submitting...' : 'Submit to archive'}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
