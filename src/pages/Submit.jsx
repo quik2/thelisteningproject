@@ -138,9 +138,11 @@ function Submit() {
                         <div className="result-name">{item.name}</div>
                         <div className="result-artist">
                           {item.artists.map(a => a.name).join(', ')}
-                          {item.type === 'album' && ' • album'}
                         </div>
                       </div>
+                      {item.type === 'album' && (
+                        <span className="result-type-badge">album</span>
+                      )}
                     </div>
                   ))}
                 </div>
