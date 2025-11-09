@@ -13,16 +13,77 @@
   max-width: 600px;
   margin: 0 auto;
   padding: 2rem 0;
+  position: relative;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.submit-search-title {
-  font-family: 'Lora', serif;
-  font-size: 2.5rem;
-  font-weight: 300;
-  color: #2c2c2c;
-  margin: 0 0 2rem 0;
-  text-align: center;
-  letter-spacing: -0.01em;
+/* Floating vinyl background animation */
+.vinyl-background-animation {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.15;
+}
+
+.floating-vinyl {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center, #2c2c2c 20%, transparent 20%),
+    repeating-radial-gradient(circle at center,
+      #1a1a1a 0px,
+      #1a1a1a 2px,
+      #2c2c2c 2px,
+      #2c2c2c 4px
+    );
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  animation: floatVinyl 20s ease-in-out infinite;
+}
+
+.vinyl-1 {
+  top: -50px;
+  left: -50px;
+  animation-delay: 0s;
+  animation-duration: 25s;
+}
+
+.vinyl-2 {
+  bottom: -80px;
+  right: -80px;
+  width: 250px;
+  height: 250px;
+  animation-delay: -8s;
+  animation-duration: 30s;
+}
+
+.vinyl-3 {
+  top: 50%;
+  left: 50%;
+  width: 150px;
+  height: 150px;
+  animation-delay: -15s;
+  animation-duration: 22s;
+}
+
+@keyframes floatVinyl {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(30px, -30px) rotate(90deg);
+  }
+  50% {
+    transform: translate(-20px, 20px) rotate(180deg);
+  }
+  75% {
+    transform: translate(40px, 10px) rotate(270deg);
+  }
 }
 
 /* Preview section - shown after track selection */
@@ -81,23 +142,33 @@
 
 .search-input-wrapper {
   position: relative;
+  z-index: 1;
+  width: 100%;
 }
 
 .submit-search-input {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 1.25rem 1.5rem;
   font-family: 'Lora', serif;
-  font-size: 1rem;
-  border: 1px solid #d4c5b9;
+  font-size: 1.25rem;
+  border: 2px solid #d4c5b9;
   background: #ffffff;
-  border-radius: 2px;
+  border-radius: 8px;
   transition: all 0.3s ease;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.submit-search-input::placeholder {
+  color: #a8998c;
+  font-style: italic;
 }
 
 .submit-search-input:focus {
   outline: none;
-  border-color: #8b7a6b;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-color: #2c2c2c;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
 }
 
 .searching-indicator {

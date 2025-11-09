@@ -121,12 +121,16 @@ function Submit() {
       <div className="submit-container">
         {!selectedTrack ? (
           <div className="submit-search-section">
-            <h1 className="submit-search-title">Find your song or album</h1>
+            <div className="vinyl-background-animation">
+              <div className="floating-vinyl vinyl-1"></div>
+              <div className="floating-vinyl vinyl-2"></div>
+              <div className="floating-vinyl vinyl-3"></div>
+            </div>
             <div className="search-input-wrapper">
               <input
                 type="text"
                 className="submit-search-input"
-                placeholder="Search Spotify..."
+                placeholder="Find your song or album..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 autoFocus
