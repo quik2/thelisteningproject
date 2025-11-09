@@ -13,6 +13,7 @@ function Home() {
   const [sortBy, setSortBy] = useState('most-recent');
   const [isRandomMode, setIsRandomMode] = useState(false);
   const [activeFilter, setActiveFilter] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
   const lastRandomParam = useRef(null);
 
@@ -43,6 +44,8 @@ function Home() {
       sortSubmissions(data);
     } catch (error) {
       console.error('Error fetching submissions:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -209,7 +212,11 @@ function Home() {
       </Header>
 
       <div className="home-content">
-        {filteredSubmissions.length === 0 ? (
+        {loading ? (
+          <div className="card-grid">
+            {/* Show nothing while loading */}
+          </div>
+        ) : filteredSubmissions.length === 0 ? (
           <div className="no-results">No records found</div>
         ) : (
           <div className="card-grid">
