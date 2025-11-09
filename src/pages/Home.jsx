@@ -225,7 +225,7 @@ function Home() {
                 key={submission.id}
                 submission={submission}
                 onClick={handleCardClick}
-                style={{ animationDelay: `${index * 0.05}s` }}
+                style={{ animationDelay: `${index * 0.02}s` }}
               />
             ))}
           </div>
