@@ -121,28 +121,7 @@ function Submit() {
       <div className="submit-container">
         {!selectedTrack ? (
           <div className="submit-search-section">
-            <div className="vinyl-display">
-              <div className="realistic-vinyl">
-                <div className="vinyl-grooves"></div>
-                <svg className="outer-circular-text" viewBox="0 0 200 200">
-                  <defs>
-                    <path
-                      id="outerCirclePath"
-                      d="M 100, 100 m -95, 0 a 95,95 0 1,1 190,0 a 95,95 0 1,1 -190,0"
-                    />
-                  </defs>
-                  <text className="engraved-text-outer">
-                    <textPath href="#outerCirclePath" startOffset="0%">
-                      THE RECORD ROOM • THE RECORD ROOM • THE RECORD ROOM • THE RECORD ROOM •
-                    </textPath>
-                  </text>
-                </svg>
-                <div className="vinyl-label">
-                  <div className="center-hole"></div>
-                </div>
-              </div>
-            </div>
-            <div className="search-input-wrapper centered-search">
+            <div className="search-input-wrapper">
               <input
                 type="text"
                 className="submit-search-input"
