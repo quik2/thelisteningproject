@@ -27,7 +27,8 @@
       "Bash(timeout /t 3 /nobreak)",
       "Bash(git log:*)",
       "Bash(del Featured.jsx)",
-      "Bash(del Featured.css)"
+      "Bash(del Featured.css)",
+      "Bash(del \"C:\\Users\\quinn\\OneDrive\\Documentos\\Code\\Listening Project\\src\\pages\\Featured.tsx\")"
     ],
     "deny": [],
     "ask": []

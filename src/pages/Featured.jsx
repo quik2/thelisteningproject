@@ -1,16 +1,12 @@
 import { useState, useEffect } from 'react';
-// @ts-ignore
 import Header from '../components/Header';
-// @ts-ignore
 import Card from '../components/Card';
-// @ts-ignore
 import Modal from '../components/Modal';
-import { Submission } from '../types';
 import './Featured.css';
 
 function Featured() {
-  const [featuredSubmission, setFeaturedSubmission] = useState<Submission | null>(null);
-  const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);
+  const [featuredSubmission, setFeaturedSubmission] = useState(null);
+  const [selectedSubmission, setSelectedSubmission] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,7 +20,7 @@ function Featured() {
 
       // Get the most liked submission
       if (data.length > 0) {
-        const mostLiked = data.reduce((prev: Submission, current: Submission) =>
+        const mostLiked = data.reduce((prev, current) =>
           (current.likes || 0) > (prev.likes || 0) ? current : prev
         );
         setFeaturedSubmission(mostLiked);
@@ -36,11 +32,11 @@ function Featured() {
     }
   };
 
-  const handleCardClick = (submission: Submission) => {
+  const handleCardClick = (submission) => {
     setSelectedSubmission(submission);
   };
 
-  const handleLikeUpdate = (submissionId: string, newLikes: number) => {
+  const handleLikeUpdate = (submissionId, newLikes) => {
     if (featuredSubmission?.id === submissionId) {
       setFeaturedSubmission(prev => prev ? { ...prev, likes: newLikes } : null);
     }
@@ -63,7 +59,6 @@ function Featured() {
             <div className="featured-card-wrapper">
               <Card
                 submission={featuredSubmission}
-                // @ts-expect-error - Card onClick type mismatch
                 onClick={handleCardClick}
               />
             </div>
@@ -77,7 +72,6 @@ function Featured() {
         <Modal
           submission={selectedSubmission}
           onClose={() => setSelectedSubmission(null)}
-          // @ts-expect-error - Modal prop type mismatch
           onLikeUpdate={handleLikeUpdate}
         />
       )}

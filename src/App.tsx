@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
+// @ts-ignore
 import Featured from './pages/Featured';
 // @ts-ignore
 import About from './pages/About';
