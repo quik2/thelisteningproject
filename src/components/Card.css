@@ -89,11 +89,11 @@
 /* Vinyl Record - peeking out */
 .vinyl-record {
   position: absolute;
-  right: -55px;
+  right: -70px;
   top: 50%;
   transform: translateY(-50%);
-  width: 270px;
-  height: 270px;
+  width: 255px;
+  height: 255px;
   border-radius: 50%;
   background:
     radial-gradient(circle at 30% 30%, #1a1a1a 0%, #0a0a0a 40%, #000000 100%);
@@ -177,18 +177,6 @@
   position: relative;
 }
 
-.card-text::before {
-  content: '"';
-  position: absolute;
-  top: 0.5rem;
-  left: 0.5rem;
-  font-family: 'Georgia', serif;
-  font-size: 4rem;
-  line-height: 1;
-  color: rgba(212, 197, 185, 0.3);
-  font-weight: 700;
-}
-
 .card-story {
   font-family: 'Lora', serif;
   font-size: 1.05rem;
@@ -196,12 +184,10 @@
   color: #2c2c2c;
   margin: 0;
   display: -webkit-box;
-  -webkit-line-clamp: 7;
+  -webkit-line-clamp: 8;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  position: relative;
-  z-index: 1;
 }
 
 .card-story::first-letter {
@@ -217,8 +203,6 @@
   color: #8b7a6b;
   margin: 0.75rem 0 0 0;
   text-align: right;
-  position: relative;
-  z-index: 1;
 }
 
 @media (max-width: 650px) {
@@ -253,15 +237,9 @@
     padding: 1.25rem 1.5rem;
   }
 
-  .card-text::before {
-    font-size: 3rem;
-    top: 0.25rem;
-    left: 0.25rem;
-  }
-
   .card-story {
     font-size: 0.95rem;
-    -webkit-line-clamp: 6;
+    -webkit-line-clamp: 7;
   }
 
   .card-author {
