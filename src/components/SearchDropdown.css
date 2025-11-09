@@ -93,7 +93,7 @@
   font-weight: 500;
   text-transform: lowercase;
   padding: 4px 10px;
-  border-radius: 3px;
+  border-radius: 0;
   flex-shrink: 0;
   margin-left: auto;
 }
