@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Lora', serif;
-  background: #F5EFE6;
+  background: #f5f1eb;
   color: #2c2c2c;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -55,7 +55,7 @@ textarea:focus-visible {
 }
 
 ::-webkit-scrollbar-track {
-  background: #F5EFE6;
+  background: #f5f1eb;
 }
 
 ::-webkit-scrollbar-thumb {

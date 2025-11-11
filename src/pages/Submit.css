@@ -86,7 +86,7 @@
   font-family: 'Lora', serif;
   font-size: 1.1rem;
   border: 2px solid #8b7a6b;
-  background: #fdfcfb;
+  background: #f5f0eb;
   border-radius: 2px;
   transition: all 0.3s ease;
   text-align: center;
@@ -124,7 +124,7 @@
   top: calc(100% + 8px);
   left: 0;
   right: 0;
-  background: #fdfcfb;
+  background: #f5f0eb;
   border: 1px solid #d4c5b9;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -247,7 +247,7 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  background: #ffffff;
+  background: #f5f0eb;
   border: 1px solid #d4c5b9;
   border-radius: 2px;
   margin: 1.5rem 0;
@@ -331,7 +331,7 @@
   font-size: 1.05rem;
   line-height: 1.8;
   border: 1px solid #d4c5b9;
-  background: #ffffff;
+  background: #f5f0eb;
   border-radius: 2px;
   resize: vertical;
   transition: all 0.3s ease;

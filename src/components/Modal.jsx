@@ -6,6 +6,7 @@ function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious, isPrevie
   const [hasLiked, setHasLiked] = useState(false);
   const [isLiking, setIsLiking] = useState(false);
   const textareaRef = useRef(null);
+  const modalRef = useRef(null);
 
   useEffect(() => {
     // Update likes when submission changes
@@ -21,9 +22,34 @@ function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious, isPrevie
   useEffect(() => {
     // Prevent body scroll when modal is open (but not in preview mode)
     if (!isPreview) {
+      const scrollY = window.scrollY;
+      // Calculate scrollbar width to prevent layout shift
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+      // Lock scroll without using position: fixed
       document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+      document.body.style.touchAction = 'none';
+      document.body.dataset.scrollY = String(scrollY);
+
+      // Prevent iOS rubber band scrolling
+      const preventOverscroll = (e) => {
+        // Only prevent if touching outside modal content
+        if (!e.target.closest('.modal-layout')) {
+          e.preventDefault();
+        }
+      };
+
+      document.addEventListener('touchmove', preventOverscroll, { passive: false });
+
       return () => {
-        document.body.style.overflow = 'unset';
+        const savedScrollY = parseInt(document.body.dataset.scrollY || '0', 10);
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
+        document.body.style.touchAction = '';
+        delete document.body.dataset.scrollY;
+        document.removeEventListener('touchmove', preventOverscroll);
+        window.scrollTo(0, savedScrollY);
       };
     }
   }, [isPreview]);
@@ -39,6 +65,47 @@ function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious, isPrevie
       return () => window.removeEventListener('keydown', handleEscape);
     }
   }, [onClose, isPreview]);
+
+  useEffect(() => {
+    // Focus trap and focus management
+    if (!isPreview && modalRef.current) {
+      const modal = modalRef.current;
+      const previouslyFocused = document.activeElement;
+
+      // Get all focusable elements
+      const focusableElements = modal.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      // Focus first element
+      firstElement?.focus();
+
+      // Handle Tab key for focus trap
+      const handleTab = (e) => {
+        if (e.key !== 'Tab') return;
+
+        if (e.shiftKey && document.activeElement === firstElement) {
+          e.preventDefault();
+          lastElement?.focus();
+        } else if (!e.shiftKey && document.activeElement === lastElement) {
+          e.preventDefault();
+          firstElement?.focus();
+        }
+      };
+
+      modal.addEventListener('keydown', handleTab);
+
+      return () => {
+        modal.removeEventListener('keydown', handleTab);
+        // Restore focus to previously focused element
+        if (previouslyFocused && previouslyFocused instanceof HTMLElement) {
+          previouslyFocused.focus();
+        }
+      };
+    }
+  }, [isPreview]);
 
   // Auto-resize textarea
   useEffect(() => {
@@ -164,7 +231,7 @@ function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious, isPrevie
         </div>
         <div className="modal-text">
           <div className="modal-header">
-            <h2 className="modal-song">{submission.songName}</h2>
+            <h2 id="modal-title" className="modal-song">{submission.songName}</h2>
             <p className="modal-artist">{submission.artistName}</p>
             <div className="modal-like-section">
               <button
@@ -201,9 +268,16 @@ function Modal({ submission, onClose, onLikeUpdate, onNext, onPrevious, isPrevie
   }
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div
+      className="modal-overlay"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
       <div className="modal-overlay-inner">
         <div
+          ref={modalRef}
           className="modal-content"
           onClick={(e) => e.stopPropagation()}
         >
