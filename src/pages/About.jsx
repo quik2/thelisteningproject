@@ -9,14 +9,14 @@ function About() {
   const [isRandomMode, setIsRandomMode] = useState(false);
   const [exampleSubmission, setExampleSubmission] = useState({
     id: "example",
-    songName: "Here Comes The Sun",
-    artistName: "The Beatles",
-    albumName: "Abbey Road",
-    albumCover: "https://upload.wikimedia.org/wikipedia/en/4/42/Beatles_-_Abbey_Road.jpg",
-    userText: "This song reminds me of my grandmother's garden. Every summer morning, she'd hum this while watering her roses. Now whenever I hear it, I'm transported back to those peaceful moments, the smell of earth and flowers, and her gentle smile.",
-    submittedBy: "Sarah",
+    songName: "The Record Room",
+    artistName: "",
+    albumName: "",
+    albumCover: "/logotest.png",
+    userText: "Music is a vehicle for shared human experience.",
+    submittedBy: "",
     timestamp: "2024-01-15T10:30:00.000Z",
-    likes: 42
+    likes: 0
   });
 
   const handleLikeUpdate = (submissionId, newLikes) => {

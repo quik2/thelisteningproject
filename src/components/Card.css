@@ -304,6 +304,18 @@
   letter-spacing: 0.02em;
 }
 
+/* When there's no artist, give the story more space */
+.record-artist:empty {
+  display: none;
+}
+
+.label-content:has(.record-artist:empty) .record-story,
+.label-content:not(:has(.record-artist)) .record-story {
+  -webkit-line-clamp: 4;
+  font-size: 0.85rem;
+  margin-top: 8px;
+}
+
 .record-artist {
   font-family: 'Lora', serif;
   font-size: 0.92rem;
