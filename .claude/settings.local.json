@@ -32,7 +32,8 @@
       "Bash(node -c:*)",
       "WebSearch",
       "Bash(git pull:*)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "Bash(git revert:*)"
     ],
     "deny": [],
     "ask": []

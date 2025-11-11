@@ -147,11 +147,38 @@
 }
 
 @media (max-width: 650px) {
+  .search-sort-container {
+    flex-direction: column;
+    max-width: 100%;
+    margin: 1.5rem auto 0.5rem;
+  }
+
+  .sort-dropdown {
+    width: 100%;
+    padding: 0.6rem 2rem 0.6rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .results-count {
+    font-size: 0.75rem;
+    padding: 0.5rem 0 0;
+  }
+
+  .filter-chip-container {
+    margin: 0.5rem auto 0;
+    max-width: 100%;
+  }
+
+  .filter-chip {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.6rem;
+  }
+
   .card-grid {
     gap: 4rem 0;
   }
 
   .home-content {
-    padding: 0rem 1.5rem 3rem;
+    padding: 0rem 1rem 3rem;
   }
 }
