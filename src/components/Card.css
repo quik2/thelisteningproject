@@ -180,36 +180,39 @@
   border-radius: 50%;
   background:
     radial-gradient(
-      ellipse 80% 35% at 45% 18%,
-      rgba(255, 255, 255, 0.25) 0%,
-      rgba(255, 255, 255, 0.12) 30%,
-      transparent 60%
+      ellipse 70% 30% at 40% 15%,
+      rgba(255, 255, 255, 0.35) 0%,
+      rgba(255, 255, 255, 0.18) 25%,
+      rgba(255, 255, 255, 0.08) 40%,
+      transparent 65%
     ),
     radial-gradient(
-      ellipse 40% 60% at 20% 45%,
-      rgba(255, 255, 255, 0.15) 0%,
-      rgba(255, 255, 255, 0.05) 35%,
+      ellipse 45% 65% at 18% 40%,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0.08) 30%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 40% 50% at 78% 65%,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.04) 35%,
       transparent 50%
     ),
-    radial-gradient(
-      ellipse 35% 45% at 75% 60%,
-      rgba(255, 255, 255, 0.08) 0%,
-      transparent 45%
-    ),
     linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.06) 0%,
-      transparent 25%,
-      transparent 65%,
-      rgba(0, 0, 0, 0.4) 100%
+      125deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      transparent 30%,
+      transparent 60%,
+      rgba(0, 0, 0, 0.3) 100%
     ),
     conic-gradient(
-      from 45deg at 50% 50%,
-      rgba(255, 255, 255, 0.03) 0deg,
-      transparent 90deg,
-      rgba(255, 255, 255, 0.02) 180deg,
-      transparent 270deg,
-      rgba(255, 255, 255, 0.03) 360deg
+      from 35deg at 50% 50%,
+      rgba(255, 255, 255, 0.06) 0deg,
+      rgba(255, 255, 255, 0.02) 60deg,
+      transparent 120deg,
+      rgba(255, 255, 255, 0.04) 180deg,
+      transparent 240deg,
+      rgba(255, 255, 255, 0.06) 360deg
     );
   pointer-events: none;
 }
