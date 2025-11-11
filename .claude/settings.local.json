@@ -30,11 +30,9 @@
       "Bash(del Featured.css)",
       "Bash(del \"C:\\Users\\quinn\\OneDrive\\Documentos\\Code\\Listening Project\\src\\pages\\Featured.tsx\")",
       "Bash(node -c:*)",
+      "WebSearch",
       "Bash(git pull:*)",
-      "Bash(where vercel:*)",
-      "Bash(vercel --version:*)",
-      "Bash(vercel env:*)",
-      "Bash(vercel login)"
+      "Bash(git stash:*)"
     ],
     "deny": [],
     "ask": []
