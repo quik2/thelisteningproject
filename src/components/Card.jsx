@@ -21,7 +21,7 @@ function Card({ submission, onClick }) {
         <div className="record-center">
           <div className="record-label">
             <div className="label-content">
-              <h3 className="record-song">{submission.songName}</h3>
+              {submission.songName && <h3 className="record-song">{submission.songName}</h3>}
               {submission.artistName && <p className="record-artist">{submission.artistName}</p>}
               <p className="record-story">{submission.userText}</p>
               {submission.submittedBy && <p className="record-author">— {submission.submittedBy}</p>}

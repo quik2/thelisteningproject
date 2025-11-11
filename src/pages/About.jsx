@@ -9,7 +9,7 @@ function About() {
   const [isRandomMode, setIsRandomMode] = useState(false);
   const [exampleSubmission, setExampleSubmission] = useState({
     id: "example",
-    songName: "The Record Room",
+    songName: "",
     artistName: "",
     albumName: "",
     albumCover: "/logotest.png",

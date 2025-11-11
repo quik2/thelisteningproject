@@ -50,6 +50,7 @@
     inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   overflow: hidden;
   flex-shrink: 0;
+  background: #f5f1eb;
 }
 
 .vinyl-sleeve::after {
@@ -314,6 +315,19 @@
   -webkit-line-clamp: 4;
   font-size: 0.85rem;
   margin-top: 8px;
+}
+
+/* When there's no song name, center and enlarge the story */
+.label-content:not(:has(.record-song)) {
+  justify-content: center;
+}
+
+.label-content:not(:has(.record-song)) .record-story {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  -webkit-line-clamp: 5;
+  margin-top: 0;
+  text-align: center;
 }
 
 .record-artist {
