@@ -9,7 +9,32 @@
   justify-content: flex-start;
   padding: 30px;
   overflow: visible;
+  opacity: 0;
+  animation: fadeInCard 0.5s ease-out forwards;
 }
+
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Staggered animation for cards */
+.card-container:nth-child(1) { animation-delay: 0.05s; }
+.card-container:nth-child(2) { animation-delay: 0.1s; }
+.card-container:nth-child(3) { animation-delay: 0.15s; }
+.card-container:nth-child(4) { animation-delay: 0.2s; }
+.card-container:nth-child(5) { animation-delay: 0.25s; }
+.card-container:nth-child(6) { animation-delay: 0.3s; }
+.card-container:nth-child(7) { animation-delay: 0.35s; }
+.card-container:nth-child(8) { animation-delay: 0.4s; }
+.card-container:nth-child(9) { animation-delay: 0.45s; }
+.card-container:nth-child(10) { animation-delay: 0.5s; }
 
 /* Album Sleeve */
 .vinyl-sleeve {
@@ -49,6 +74,52 @@
   object-fit: cover;
   display: block;
   loading: lazy;
+}
+
+/* Image loading states */
+.vinyl-sleeve img.loading {
+  opacity: 0;
+}
+
+.vinyl-sleeve img.loaded {
+  opacity: 1;
+  animation: fadeInImage 0.4s ease-out;
+}
+
+@keyframes fadeInImage {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Skeleton loader for images */
+.image-skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    #e8e0d5 0%,
+    #f0e8dc 20%,
+    #e8e0d5 40%,
+    #e8e0d5 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 /* Vinyl Record */
@@ -199,18 +270,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 35px;
+  padding: 55px;
   box-sizing: border-box;
 }
 
 .label-content {
   text-align: center;
   width: 100%;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 6px;
 }
 
 .record-song {
@@ -250,12 +322,12 @@
 
 .record-story {
   font-family: 'Lora', serif;
-  font-size: 0.82rem;
-  line-height: 1.5;
+  font-size: 0.78rem;
+  line-height: 1.4;
   color: #e8e8e8;
-  margin: 10px 0 0 0;
+  margin: 6px 0 0 0;
   display: -webkit-box;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -267,10 +339,10 @@
 
 .record-author {
   font-family: 'Lora', serif;
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   font-style: italic;
   color: #c8c8c8;
-  margin: 8px 0 0 0;
+  margin: 4px 0 0 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -309,23 +381,23 @@
   }
 
   .record-label {
-    padding: 25px;
+    padding: 40px;
   }
 
   .record-song {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
   .record-artist {
-    font-size: 0.8rem;
+    font-size: 0.76rem;
   }
 
   .record-story {
-    font-size: 0.75rem;
-    -webkit-line-clamp: 4;
+    font-size: 0.7rem;
+    -webkit-line-clamp: 2;
   }
 
   .record-author {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
   }
 }

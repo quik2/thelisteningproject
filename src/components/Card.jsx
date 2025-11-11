@@ -1,14 +1,20 @@
+import { useState } from 'react';
 import './Card.css';
 
 function Card({ submission, onClick }) {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   return (
     <div className="card-container" onClick={() => onClick(submission)}>
       <div className="vinyl-sleeve">
+        {!imageLoaded && <div className="image-skeleton" />}
         <img
           src={submission.albumCover}
           alt={submission.albumName}
           loading="lazy"
           decoding="async"
+          onLoad={() => setImageLoaded(true)}
+          className={imageLoaded ? 'loaded' : 'loading'}
         />
       </div>
       <div className="vinyl-record">
